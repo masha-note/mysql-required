@@ -1,0 +1,6 @@
+[book]
+authors = ["BuMaRen"]
+language = "zh"
+multilingual = false
+src = "src"
+title = "MySQL必知必会"
