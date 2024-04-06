@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">1.</strong> 17 组合查询</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">1.</strong> 15 联结表</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">2.</strong> 17 组合查询</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">3.</strong> 18 全文本搜索</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -174,7 +174,36 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="17-组合查询"><a class="header" href="#17-组合查询">17 组合查询</a></h1>
+                        <h1 id="15-联结表"><a class="header" href="#15-联结表">15 联结表</a></h1>
+<h2 id="151-联结"><a class="header" href="#151-联结">15.1 联结</a></h2>
+<h3 id="1511-关系表"><a class="header" href="#1511-关系表">15.1.1 关系表</a></h3>
+<p><strong>外键（foreign key）</strong> 外键为某个表中的一列，它包含另一个表的主键值，定义了两个表之间的关系。</p>
+<p>这样做的好处是：</p>
+<ul>
+<li>外键指向的表中的信息变更的时候只需要做一份修改</li>
+<li>存储的数据没有重复</li>
+</ul>
+<p>因此，关系型数据库的可伸缩性远比非关系型数据库好。</p>
+<p><strong>可伸缩性（scale）</strong> 能够适应不断增加的工作量而不失败。设计良好的数据库或应用程序称之为可伸缩性好(scale well)。</p>
+<h3 id="1512-为什么要使用联结"><a class="header" href="#1512-为什么要使用联结">15.1.2 为什么要使用联结</a></h3>
+<p>分解数据为多个表能更有效地存储，更方便地处理，并且具有更大的可伸缩性。但这些好处是有代价的。—— 查询变的复杂。</p>
+<p>联结是一种机制，用来在一条SELECT语句中关联表，因此称之为联结。使用特殊的语法，可以联结多个表返回一组输出，联结在运行时关联表中正确的行。</p>
+<p><strong>维护引用完整性</strong>  重要的是，要理解联结不是物理实体。换句话说，它在实际的数据库表中不存在。联结由MySQL根据需要建立，它存在于查询的执行当中。(参阅21章)</p>
+<h2 id="152-创建联结"><a class="header" href="#152-创建联结">15.2 创建联结</a></h2>
+<pre><code class="language-SQL">示例
+</code></pre>
+<h3 id="1521-where子句的重要性"><a class="header" href="#1521-where子句的重要性">15.2.1 WHERE子句的重要性</a></h3>
+<p>利用WHERE子句建立联结关系似乎有点奇怪，但实际上，有一个很充分的理由。请记住，在一条SELECT语句中联结几个表时，相应的关系是在运行中构造的。在数据库表的定义中不存在能指示MySQL如何对表进行联结的东西。你必须自己做这件事情。在联结两个表时，你实际上做的是将第一个表中的每一行与第二个表中的每一行配对。WHERE子句作为过滤条件，它只包含那些匹配给定条件（这里是联结条件）的行。没有WHERE子句，第一个表中的每个行将与第二个表中的每个行配对，而不管它们逻辑上是否可以配在一起。</p>
+<p><strong>笛卡儿积（cartesian product）</strong> 由没有联结条件的表关系返回的结果为笛卡儿积。检索出的行的数目将是第一个表中的行数乘以第二个表中的行数。</p>
+<p><strong>不要忘了WHERE子句</strong> 应该保证所有联结都有WHERE子句，否则MySQL将返回比想要的数据多得多的数据。同理，应该保证WHERE子句的正确性。不正确的过滤条件将导致MySQL返回不正确的数据。</p>
+<h3 id="1522-内部联结"><a class="header" href="#1522-内部联结">15.2.2 内部联结</a></h3>
+<p>目前为止所用的联结称为等值联结（equijoin），它基于两个表之间的相等测试。这种联结也称为内部联结。WHERE语法可以用INNER JOIN语法替换。</p>
+<p><strong>使用哪种语法</strong> ANSI SQL规范首选INNER JOIN语法。此外，尽管使用WHERE子句定义联结的确比较简单，但是使用明确的联结语法能够确保不会忘记联结条件，有时候这样做也能影响性能。</p>
+<h3 id="1523-联结多个表"><a class="header" href="#1523-联结多个表">15.2.3 联结多个表</a></h3>
+<p>在WHERE语法中，可以通过在FROM添加多个表，在WHERE后面用AND拼接多个条件来联结多个表。</p>
+<p><strong>性能考虑</strong> MySQL在运行时关联指定的每个表以处理联结。这种处理可能是非常耗费资源的，因此应该仔细，不要联结不必要的表。联结的表越多，性能下降越厉害。</p>
+<p><strong>多做实验</strong> 为执行任一给定的SQL操作，一般存在不止一种方法。很少有绝对正确或绝对错误的方法。性能可能会受操作类型、表中数据量、是否存在索引或键以及其他一些条件的影响。因此，有必要对不同的选择机制进行实验，以找出最适合具体情况的方法。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="17-组合查询"><a class="header" href="#17-组合查询">17 组合查询</a></h1>
 <h2 id="171-组合查询"><a class="header" href="#171-组合查询">17.1 组合查询</a></h2>
 <p>多数SQL查询都只包含从一个或多个表中返回数据的单条SELECT语句。MySQL也允许执行多个查询(多条SELECT语句)，并将结果作为单个查询结果集返回。这些组合查询通常称为并(union)或复合查询(compound query)。</p>
 <p>有两种基本情况，其中需要使用组合查询</p>
@@ -195,6 +224,42 @@
 <h3 id="1724-对组合查询结果排序"><a class="header" href="#1724-对组合查询结果排序">17.2.4 对组合查询结果排序</a></h3>
 <p>在用UNION组合查询的时候只能使用一条ORDER BY子句，它必须出现在最后一条SELECT语句之后。</p>
 <p>UNION的组合查询可以应用不同的表。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="18-全文本搜索"><a class="header" href="#18-全文本搜索">18 全文本搜索</a></h1>
+<h2 id="181-理解全文本搜索"><a class="header" href="#181-理解全文本搜索">18.1 理解全文本搜索</a></h2>
+<p>并非所有引擎都支持全文本搜索，MySQL支持几种基本的数据库引擎。并非所有的引擎都支持全文本搜索。两个最常使用的引擎为MyISAM和InnoDB，前者支持全文本搜索，而后者不支持。</p>
+<p>LIKE通过统配操作匹配文本，通过LIKE能查找包含特殊值或部分值的行。</p>
+<p>虽然这些搜索机制很有用，但存在几个重要的限制</p>
+<ul>
+<li>性能——通配符和正则表达式匹配通常要求MySQL尝试匹配表中所有行(而且这些搜索极少使用表索引)。因此，由于被搜索行数不断增加，这些搜索可能非常耗时。</li>
+<li>明确控制——使用通配符和正则表达式匹配，很难(而且并不总是能)明确地控制匹配什么和不匹配什么。</li>
+<li>智能化结果——虽然基于通配符和正则表达式的搜索提供了非常灵活的搜索，但他们都不能提供一种智能化的选择结果的方法。</li>
+</ul>
+<p>所有这些限制以及更多的限制都可以使用全文本搜索来解决。在使用全文本搜索的时候，MySQL不需要分别查看每个行，不需要分别分析和处理每个词。MySQL创建指定列中各词的一个索引，搜索可以针对这些词进行。这样，MySQL可以快速有效地决定哪些词匹配(哪些行包含它们)，哪些词不匹配，它的匹配频率等。</p>
+<h2 id="182-使用全文本搜索"><a class="header" href="#182-使用全文本搜索">18.2 使用全文本搜索</a></h2>
+<p>为了使用全文本搜索，必须索引被搜索的列，而且要随着数据的改变不断底重新索引。在对表列进行适当的设计后，MySQL会自动进行所有列的索引和重新索引。</p>
+<p>在索引后，SELECT可以Match()和Against()一起使用来实际执行搜索。</p>
+<h3 id="1821-启用全文本搜索支持"><a class="header" href="#1821-启用全文本搜索支持">18.2.1 启用全文本搜索支持</a></h3>
+<p>一般在创建表的时候启用全文本搜索。CREATE TABLE语句接受FULLTEXT子句，它给出被索引列的一个都好分隔的列表。</p>
+<pre><code class="language-SQL">示例
+</code></pre>
+<p>在定义之后，MySQL自动维护该索引。在增加、更新或删除行的时候索引随之更新。</p>
+<p>可以在创建表时指定FULLTEXT，或者在稍后指定(在这种情况下所有已有的数据必须立刻索引)。</p>
+<p><strong>不要在导入数据时使用FULLTEXT</strong> 更新索引要花时间，虽然不是很多，但毕竟要花时间。如果正在导入数据到一个新表，此时不应该启用FULLTEXT索引。应该首先导入所有数据，然后再修改表，定义FULLTEXT。这样有助于更快地导入数据(而且使索引数据的总时间小于在导入每行时分别进行索引所需的总时间)。</p>
+<h3 id="1822-进行全文本搜索"><a class="header" href="#1822-进行全文本搜索">18.2.2 进行全文本搜索</a></h3>
+<p>在索引之后，使用两个函数Match()和Against()执行全文本搜索，其中Match()指定被搜索的列，Against()指定要使用的搜索表达式。</p>
+<pre><code class="language-SQL">示例
+</code></pre>
+<p><strong>使用完整的Match()说明</strong> 传递给Match()的值必须与FULLTEXT()定义中的相同。如果指定多个列，则必须列出它们(而且次序正确)。</p>
+<p><strong>搜索不区分大小写</strong> 除非使用BINARY方式(本章中没有介绍)，否则全文本搜索不区分大小写。</p>
+<p>全文本搜索的一个重要部分就是对结果排序。具有较高等级的行先返回(因为这些行很可能是你真正想要的行)。</p>
+<pre><code class="language-SQL">示例
+</code></pre>
+<p>在SELECT而不是WHERE子句中使用Match()和Against()。Match()和Against()用来建立一个计算列，此列包含全文本搜索计算出的等级值。等级由MySQL根据行中词的数目、唯一词的数目、整个索引中词的总数以及包含该词的行的数目计算出来。</p>
+<p><strong>排序多个搜索项</strong> 如果指定多个搜索项，则包含多数匹配词的那些行将具有比包含较少词(或仅有一个匹配)的那些行高的等级值。</p>
+<p>全文本搜索提供了简单LIKE搜索不能提供的功能。而且，由于数据是索引的，全文本搜索还相当快。</p>
+<h3 id="1823-使用查询扩展"><a class="header" href="#1823-使用查询扩展">18.2.3 使用查询扩展</a></h3>
+<p>查询扩展用来设法放宽所返回的全文本搜索结果的范围。在使用查询扩展时，MySQL对数据和索引进行两遍扫描来完成搜索</p>
+<h3 id="pdf-page-136"><a class="header" href="#pdf-page-136">pdf page 136</a></h3>
 
                     </main>
 
