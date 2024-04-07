@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>15 联结表 - MySQL必知必会</title>
+        <title>2 MySQL简介 - MySQL必知必会</title>
 
 
         <!-- Custom HTML head -->
@@ -88,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 1 了解SQL</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> 2 MySQL简介</a></li><li class="chapter-item expanded "><a href="chapter_15.html" class="active"><strong aria-hidden="true">3.</strong> 15 联结表</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">4.</strong> 16 创建高级联结</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">5.</strong> 17 组合查询</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">6.</strong> 18 全文本搜索</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 1 了解SQL</a></li><li class="chapter-item expanded "><a href="chapter_2.html" class="active"><strong aria-hidden="true">2.</strong> 2 MySQL简介</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">3.</strong> 15 联结表</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">4.</strong> 16 创建高级联结</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">5.</strong> 17 组合查询</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">6.</strong> 18 全文本搜索</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -173,45 +173,25 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="15-联结表"><a class="header" href="#15-联结表">15 联结表</a></h1>
-<h2 id="151-联结"><a class="header" href="#151-联结">15.1 联结</a></h2>
-<h3 id="1511-关系表"><a class="header" href="#1511-关系表">15.1.1 关系表</a></h3>
-<p><strong>外键（foreign key）</strong> 外键为某个表中的一列，它包含另一个表的主键值，定义了两个表之间的关系。</p>
-<p>这样做的好处是：</p>
-<ul>
-<li>外键指向的表中的信息变更的时候只需要做一份修改</li>
-<li>存储的数据没有重复</li>
-</ul>
-<p>因此，关系型数据库的可伸缩性远比非关系型数据库好。</p>
-<p><strong>可伸缩性（scale）</strong> 能够适应不断增加的工作量而不失败。设计良好的数据库或应用程序称之为可伸缩性好(scale well)。</p>
-<h3 id="1512-为什么要使用联结"><a class="header" href="#1512-为什么要使用联结">15.1.2 为什么要使用联结</a></h3>
-<p>分解数据为多个表能更有效地存储，更方便地处理，并且具有更大的可伸缩性。但这些好处是有代价的。—— 查询变的复杂。</p>
-<p>联结是一种机制，用来在一条SELECT语句中关联表，因此称之为联结。使用特殊的语法，可以联结多个表返回一组输出，联结在运行时关联表中正确的行。</p>
-<p><strong>维护引用完整性</strong>  重要的是，要理解联结不是物理实体。换句话说，它在实际的数据库表中不存在。联结由MySQL根据需要建立，它存在于查询的执行当中。(参阅21章) </p>
-<h2 id="152-创建联结"><a class="header" href="#152-创建联结">15.2 创建联结</a></h2>
-<pre><code class="language-SQL">示例
-</code></pre>
-<h3 id="1521-where子句的重要性"><a class="header" href="#1521-where子句的重要性">15.2.1 WHERE子句的重要性</a></h3>
-<p>利用WHERE子句建立联结关系似乎有点奇怪，但实际上，有一个很充分的理由。请记住，在一条SELECT语句中联结几个表时，相应的关系是在运行中构造的。在数据库表的定义中不存在能指示MySQL如何对表进行联结的东西。你必须自己做这件事情。在联结两个表时，你实际上做的是将第一个表中的每一行与第二个表中的每一行配对。WHERE子句作为过滤条件，它只包含那些匹配给定条件（这里是联结条件）的行。没有WHERE子句，第一个表中的每个行将与第二个表中的每个行配对，而不管它们逻辑上是否可以配在一起。</p>
-<p><strong>笛卡儿积（cartesian product）</strong> 由没有联结条件的表关系返回的结果为笛卡儿积。检索出的行的数目将是第一个表中的行数乘以第二个表中的行数。</p>
-<p><strong>不要忘了WHERE子句</strong> 应该保证所有联结都有WHERE子句，否则MySQL将返回比想要的数据多得多的数据。同理，应该保证WHERE子句的正确性。不正确的过滤条件将导致MySQL返回不正确的数据。</p>
-<h3 id="1522-内部联结"><a class="header" href="#1522-内部联结">15.2.2 内部联结</a></h3>
-<p>目前为止所用的联结称为等值联结（equijoin），它基于两个表之间的相等测试。这种联结也称为内部联结。WHERE语法可以用INNER JOIN语法替换。</p>
-<p><strong>使用哪种语法</strong> ANSI SQL规范首选INNER JOIN语法。此外，尽管使用WHERE子句定义联结的确比较简单，但是使用明确的联结语法能够确保不会忘记联结条件，有时候这样做也能影响性能。</p>
-<h3 id="1523-联结多个表"><a class="header" href="#1523-联结多个表">15.2.3 联结多个表</a></h3>
-<p>在WHERE语法中，可以通过在FROM添加多个表，在WHERE后面用AND拼接多个条件来联结多个表。</p>
-<p><strong>性能考虑</strong> MySQL在运行时关联指定的每个表以处理联结。这种处理可能是非常耗费资源的，因此应该仔细，不要联结不必要的表。联结的表越多，性能下降越厉害。</p>
-<p><strong>多做实验</strong> 为执行任一给定的SQL操作，一般存在不止一种方法。很少有绝对正确或绝对错误的方法。性能可能会受操作类型、表中数据量、是否存在索引或键以及其他一些条件的影响。因此，有必要对不同的选择机制进行实验，以找出最适合具体情况的方法。</p>
+                        <h1 id="2-mysql简介"><a class="header" href="#2-mysql简介">2 MySQL简介</a></h1>
+<h2 id="22-mysql工具"><a class="header" href="#22-mysql工具">2.2 MySQL工具</a></h2>
+<h3 id="221-mysql命令行实用程序"><a class="header" href="#221-mysql命令行实用程序">2.2.1 mysql命令行实用程序</a></h3>
+<p>熟悉mysql命令行实用程序  即使你选择使用后面描述的某个图形工具，也应该保证熟悉mysql命令行实用程序，因为它是你可以安全地依靠的一个总是会被给出的客户机（因为它是核心MySQL安装的一部分）。</p>
+<h3 id="222-mysql-administrator"><a class="header" href="#222-mysql-administrator">2.2.2 MySQL Administrator</a></h3>
+<p>获得MySQL Administrator  MySQL Administrator不作为核心MySQL的组成部分安装。必须从http://dev.mysql.com/ downloads/下载它（可得到用于Linux、Mac OS X和Windows的版本，其源代码也可以下载）。</p>
+<h3 id="223-mysql-query-browser"><a class="header" href="#223-mysql-query-browser">2.2.3 MySQL Query Browser</a></h3>
+<p>MySQL Query Browser为一个图形交互客户机，用来编写和执行MySQL命令。</p>
+<p>获得MySQL Query Browser  与MySQL Administrator一样，MySQL Query Browser不作为核心MySQL安装的成分。也必须从http://dev.mysql.com/downloads/下载它（可得到用于Linux、Mac OS X和Windows的版本，其源代码也可以下载）。</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="chapter_2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="chapter_1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="chapter_16.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="chapter_15.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -221,11 +201,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="chapter_2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="chapter_1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="chapter_16.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="chapter_15.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
