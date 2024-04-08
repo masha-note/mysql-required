@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found - MySQL必知必会</title>
-        <base href="/">
+        <title>数据分组 - MySQL必知必会</title>
 
 
         <!-- Custom HTML head -->
@@ -89,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 了解SQL</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> MySQL简介</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">3.</strong> 汇总数据</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">4.</strong> 数据分组</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">5.</strong> 使用子查询</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">6.</strong> 联结表</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">7.</strong> 创建高级联结</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">8.</strong> 组合查询</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">9.</strong> 全文本搜索</a></li><li class="chapter-item expanded "><a href="appendix_create.html"><strong aria-hidden="true">10.</strong> 附录.创建示例数据库结构</a></li><li class="chapter-item expanded "><a href="appendix_insert.html"><strong aria-hidden="true">11.</strong> 附录.添加示例数据</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 了解SQL</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> MySQL简介</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">3.</strong> 汇总数据</a></li><li class="chapter-item expanded "><a href="chapter_13.html" class="active"><strong aria-hidden="true">4.</strong> 数据分组</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">5.</strong> 使用子查询</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">6.</strong> 联结表</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">7.</strong> 创建高级联结</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">8.</strong> 组合查询</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">9.</strong> 全文本搜索</a></li><li class="chapter-item expanded "><a href="appendix_create.html"><strong aria-hidden="true">10.</strong> 附录.创建示例数据库结构</a></li><li class="chapter-item expanded "><a href="appendix_insert.html"><strong aria-hidden="true">11.</strong> 附录.添加示例数据</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -174,14 +173,125 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="13-数据分组"><a class="header" href="#13-数据分组">13 数据分组</a></h1>
+<h2 id="132-创建分组"><a class="header" href="#132-创建分组">13.2 创建分组</a></h2>
+<p>分组是在SELECT语句的GROUP BY子句中建立的。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM products;
++----+-----------+---------+
+| id | vend_name | product |
++----+-----------+---------+
+|  1 | apple     | macbook |
+|  2 | apple     | ipad    |
+|  3 | apple     | iphone  |
+|  4 | microsoft | surface |
+|  5 | microsoft | windows |
+|  6 | google    | gemini  |
++----+-----------+---------+
+6 rows in set (0.001 sec)
 
+MariaDB [testdatabase]&gt; SELECT vend_name,COUNT(*) AS num_products FROM products GROUP BY vend_name;
++-----------+--------------+
+| vend_name | num_products |
++-----------+--------------+
+| apple     |            3 |
+| google    |            1 |
+| microsoft |            2 |
++-----------+--------------+
+3 rows in set (0.001 sec)
+</code></pre>
+<p>在具体使用GROUP BY子句前，需要知道一些重要的规定</p>
+<ul>
+<li>GROUP BY子句可以包含任意数目的列。这使得能对分组进行嵌套，为数据分组提供更细致的控制。</li>
+<li>如果在GROUP BY子句中嵌套了分组，数据将在最后规定的分组上进行汇总。换句话说，在建立分组时，指定的所有列都一起计算（所以不能从个别的列取回数据）。</li>
+<li>GROUP BY子句中列出的每个列都必须是检索列或有效的表达式（但不能是聚集函数）。如果在SELECT中使用表达式，则必须在GROUP BY子句中指定相同的表达式。不能使用别名。 </li>
+<li>GROUP BY子句必须出现在WHERE子句之后，ORDER BY子句之前。</li>
+</ul>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM products;
++----+-----------+---------+
+| id | vend_name | product |
++----+-----------+---------+
+|  1 | apple     | macbook |
+|  2 | apple     | ipad    |
+|  3 | apple     | iphone  |
+|  4 | microsoft | surface |
+|  5 | microsoft | windows |
+|  6 | google    | gemini  |
+|  7 | google    | NULL    |
++----+-----------+---------+
+7 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT vend_name,COUNT(*) AS num_products FROM products GROUP BY vend_name;
++-----------+--------------+
+| vend_name | num_products |
++-----------+--------------+
+| apple     |            3 |
+| google    |            2 |
+| microsoft |            2 |
++-----------+--------------+
+3 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT vend_name,COUNT(*) AS num_products FROM products GROUP BY vend_name WITH ROLLUP;
++-----------+--------------+
+| vend_name | num_products |
++-----------+--------------+
+| apple     |            3 |
+| google    |            2 |
+| microsoft |            2 |
+| NULL      |            7 |
++-----------+--------------+
+4 rows in set (0.001 sec)
+</code></pre>
+<h2 id="133-过滤分组"><a class="header" href="#133-过滤分组">13.3 过滤分组</a></h2>
+<p><strong>HAVING支持所有WHERE操作符</strong> 在第6章和第7章中，我们学习了WHERE子句的条件（包括通配符条件和带多个操作符的子句）。所学过的有关WHERE的所有这些技术和选项都适用于HAVING。它们的句法是相同的，只是关键字有差别。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT vend_name,COUNT(*) AS num_products FROM products GROUP BY vend_name;
++-----------+--------------+
+| vend_name | num_products |
++-----------+--------------+
+| apple     |            3 |
+| google    |            2 |
+| microsoft |            2 |
++-----------+--------------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT vend_name,COUNT(*) AS num_products FROM products GROUP BY vend_name HAVING COUNT(*)&gt;2;
++-----------+--------------+
+| vend_name | num_products |
++-----------+--------------+
+| apple     |            3 |
++-----------+--------------+
+1 row in set (0.001 sec)
+</code></pre>
+<p><strong>HAVING和WHERE的差别</strong>  这里有另一种理解方法，WHERE在数据分组前进行过滤，HAVING在数据分组后进行过滤。这是一个重要的区别，WHERE排除的行不包括在分组中。这可能会改变计算值，从而影响HAVING子句中基于这些值过滤掉的分组。</p>
+<h2 id="134-分组和排序"><a class="header" href="#134-分组和排序">13.4 分组和排序</a></h2>
+<p><strong>ORDER BY</strong>和<strong>GROUP BY</strong>的区别</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">ORDER BY</th><th style="text-align: center">GROUP BY</th></tr></thead><tbody>
+<tr><td style="text-align: center">排序产生的输出</td><td style="text-align: center">分组行。但输出可能不是分组的顺序</td></tr>
+<tr><td style="text-align: center">任意列都可以使用(甚至非选择的列也可以使用)</td><td style="text-align: center">只可能使用选择列或表达式列，而且必须使用每个选择列表达式</td></tr>
+</tbody></table>
+</div>
+<p><strong>不要忘记ORDER BY</strong>  一般在使用GROUP BY子句时，应该也给出ORDER BY子句。这是保证数据正确排序的唯一方法。千万不要仅依赖GROUP BY排序数据。</p>
+<h2 id="135-select子句顺序"><a class="header" href="#135-select子句顺序">13.5 SELECT子句顺序</a></h2>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">子句</th><th style="text-align: center">说明</th><th style="text-align: center">是否必须使用</th></tr></thead><tbody>
+<tr><td style="text-align: center">SELECT</td><td style="text-align: center">要返回的列或者表达式</td><td style="text-align: center">是</td></tr>
+<tr><td style="text-align: center">FROM</td><td style="text-align: center">从中检索数据中的表</td><td style="text-align: center">仅在从表选择数据时使用</td></tr>
+<tr><td style="text-align: center">WHERE</td><td style="text-align: center">行级过滤</td><td style="text-align: center">否</td></tr>
+<tr><td style="text-align: center">GROUP BY</td><td style="text-align: center">分组</td><td style="text-align: center">仅在按组计算聚集时使用</td></tr>
+<tr><td style="text-align: center">HAVING</td><td style="text-align: center">组级过滤</td><td style="text-align: center">否</td></tr>
+<tr><td style="text-align: center">ORDER BY</td><td style="text-align: center">给输出排序</td><td style="text-align: center">否</td></tr>
+<tr><td style="text-align: center">LIMIT</td><td style="text-align: center">要检索的行数</td><td style="text-align: center">否</td></tr>
+</tbody></table>
+</div>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter_12.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
+                            <a rel="next prefetch" href="chapter_14.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -189,7 +299,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter_12.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
+                    <a rel="next prefetch" href="chapter_14.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>

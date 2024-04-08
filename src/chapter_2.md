@@ -8,11 +8,11 @@
 
 ### 2.2.2 MySQL Administrator
 
-获得MySQL Administrator  MySQL Administrator不作为核心MySQL的组成部分安装。必须从http://dev.mysql.com/ downloads/下载它（可得到用于Linux、Mac OS X和Windows的版本，其源代码也可以下载）。
+**获得MySQL Administrator**  MySQL Administrator不作为核心MySQL的组成部分安装。必须从[http://dev.mysql.com/downloads/](http://dev.mysql.com/downloads/)下载它（可得到用于Linux、Mac OS X和Windows的版本，其源代码也可以下载）。
 
 ### 2.2.3 MySQL Query Browser
 
 MySQL Query Browser为一个图形交互客户机，用来编写和执行MySQL命令。
 
-获得MySQL Query Browser  与MySQL Administrator一样，MySQL Query Browser不作为核心MySQL安装的成分。也必须从http://dev.mysql.com/downloads/下载它（可得到用于Linux、Mac OS X和Windows的版本，其源代码也可以下载）。
+**获得MySQL Query Browser** 与MySQL Administrator一样，MySQL Query Browser不作为核心MySQL安装的成分。也必须从[http://dev.mysql.com/downloads/](http://dev.mysql.com/downloads/)下载它（可得到用于Linux、Mac OS X和Windows的版本，其源代码也可以下载）。
  

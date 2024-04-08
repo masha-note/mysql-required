@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found - MySQL必知必会</title>
-        <base href="/">
+        <title>附录.创建示例数据库结构 - MySQL必知必会</title>
 
 
         <!-- Custom HTML head -->
@@ -89,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 了解SQL</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> MySQL简介</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">3.</strong> 汇总数据</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">4.</strong> 数据分组</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">5.</strong> 使用子查询</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">6.</strong> 联结表</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">7.</strong> 创建高级联结</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">8.</strong> 组合查询</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">9.</strong> 全文本搜索</a></li><li class="chapter-item expanded "><a href="appendix_create.html"><strong aria-hidden="true">10.</strong> 附录.创建示例数据库结构</a></li><li class="chapter-item expanded "><a href="appendix_insert.html"><strong aria-hidden="true">11.</strong> 附录.添加示例数据</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 了解SQL</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> MySQL简介</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">3.</strong> 汇总数据</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">4.</strong> 数据分组</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">5.</strong> 使用子查询</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">6.</strong> 联结表</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">7.</strong> 创建高级联结</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">8.</strong> 组合查询</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">9.</strong> 全文本搜索</a></li><li class="chapter-item expanded "><a href="appendix_create.html" class="active"><strong aria-hidden="true">10.</strong> 附录.创建示例数据库结构</a></li><li class="chapter-item expanded "><a href="appendix_insert.html"><strong aria-hidden="true">11.</strong> 附录.添加示例数据</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -174,14 +173,118 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="创建示例数据库结构"><a class="header" href="#创建示例数据库结构">创建示例数据库结构</a></h1>
+<pre><code class="language-SQL">########################################
+# MySQL Crash Course
+# http://www.forta.com/books/0672327120/
+# Example table creation scripts
+########################################
+
+
+########################
+# Create customers table
+########################
+CREATE TABLE customers
+(
+  cust_id      int       NOT NULL AUTO_INCREMENT,
+  cust_name    char(50)  NOT NULL ,
+  cust_address char(50)  NULL ,
+  cust_city    char(50)  NULL ,
+  cust_state   char(5)   NULL ,
+  cust_zip     char(10)  NULL ,
+  cust_country char(50)  NULL ,
+  cust_contact char(50)  NULL ,
+  cust_email   char(255) NULL ,
+  PRIMARY KEY (cust_id)
+) ENGINE=InnoDB;
+
+#########################
+# Create orderitems table
+#########################
+CREATE TABLE orderitems
+(
+  order_num  int          NOT NULL ,
+  order_item int          NOT NULL ,
+  prod_id    char(10)     NOT NULL ,
+  quantity   int          NOT NULL ,
+  item_price decimal(8,2) NOT NULL ,
+  PRIMARY KEY (order_num, order_item)
+) ENGINE=InnoDB;
+
+
+#####################
+# Create orders table
+#####################
+CREATE TABLE orders
+(
+  order_num  int      NOT NULL AUTO_INCREMENT,
+  order_date datetime NOT NULL ,
+  cust_id    int      NOT NULL ,
+  PRIMARY KEY (order_num)
+) ENGINE=InnoDB;
+
+#######################
+# Create products table
+#######################
+CREATE TABLE products
+(
+  prod_id    char(10)      NOT NULL,
+  vend_id    int           NOT NULL ,
+  prod_name  char(255)     NOT NULL ,
+  prod_price decimal(8,2)  NOT NULL ,
+  prod_desc  text          NULL ,
+  PRIMARY KEY(prod_id)
+) ENGINE=InnoDB;
+
+######################
+# Create vendors table
+######################
+CREATE TABLE vendors
+(
+  vend_id      int      NOT NULL AUTO_INCREMENT,
+  vend_name    char(50) NOT NULL ,
+  vend_address char(50) NULL ,
+  vend_city    char(50) NULL ,
+  vend_state   char(5)  NULL ,
+  vend_zip     char(10) NULL ,
+  vend_country char(50) NULL ,
+  PRIMARY KEY (vend_id)
+) ENGINE=InnoDB;
+
+###########################
+# Create productnotes table
+###########################
+CREATE TABLE productnotes
+(
+  note_id    int           NOT NULL AUTO_INCREMENT,
+  prod_id    char(10)      NOT NULL,
+  note_date datetime       NOT NULL,
+  note_text  text          NULL ,
+  PRIMARY KEY(note_id),
+  FULLTEXT(note_text)
+) ENGINE=MyISAM;
+
+
+#####################
+# Define foreign keys
+#####################
+ALTER TABLE orderitems ADD CONSTRAINT fk_orderitems_orders FOREIGN KEY (order_num) REFERENCES orders (order_num);
+ALTER TABLE orderitems ADD CONSTRAINT fk_orderitems_products FOREIGN KEY (prod_id) REFERENCES products (prod_id);
+ALTER TABLE orders ADD CONSTRAINT fk_orders_customers FOREIGN KEY (cust_id) REFERENCES customers (cust_id);
+ALTER TABLE products ADD CONSTRAINT fk_products_vendors FOREIGN KEY (vend_id) REFERENCES vendors (vend_id);
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter_18.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
+                            <a rel="next prefetch" href="appendix_insert.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -189,7 +292,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter_18.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
+                    <a rel="next prefetch" href="appendix_insert.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
