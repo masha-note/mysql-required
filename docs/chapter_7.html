@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>汇总数据 - MySQL必知必会</title>
+        <title>数据过滤 - MySQL必知必会</title>
 
 
         <!-- Custom HTML head -->
@@ -88,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 了解SQL</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> MySQL简介</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 使用MySQL</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 检索数据</a></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> 排序检索数据</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> 过滤数据</a></li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> 数据过滤</a></li><li class="chapter-item expanded "><a href="chapter_12.html" class="active"><strong aria-hidden="true">8.</strong> 汇总数据</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">9.</strong> 数据分组</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">10.</strong> 使用子查询</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">11.</strong> 联结表</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">12.</strong> 创建高级联结</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">13.</strong> 组合查询</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">14.</strong> 全文本搜索</a></li><li class="chapter-item expanded "><a href="chapter_19.html"><strong aria-hidden="true">15.</strong> 插入数据</a></li><li class="chapter-item expanded "><a href="appendix_create.html"><strong aria-hidden="true">16.</strong> 附录.创建示例数据库结构</a></li><li class="chapter-item expanded "><a href="appendix_insert.html"><strong aria-hidden="true">17.</strong> 附录.添加示例数据</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 了解SQL</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> MySQL简介</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 使用MySQL</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 检索数据</a></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> 排序检索数据</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> 过滤数据</a></li><li class="chapter-item expanded "><a href="chapter_7.html" class="active"><strong aria-hidden="true">7.</strong> 数据过滤</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">8.</strong> 汇总数据</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">9.</strong> 数据分组</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">10.</strong> 使用子查询</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">11.</strong> 联结表</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">12.</strong> 创建高级联结</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">13.</strong> 组合查询</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">14.</strong> 全文本搜索</a></li><li class="chapter-item expanded "><a href="chapter_19.html"><strong aria-hidden="true">15.</strong> 插入数据</a></li><li class="chapter-item expanded "><a href="appendix_create.html"><strong aria-hidden="true">16.</strong> 附录.创建示例数据库结构</a></li><li class="chapter-item expanded "><a href="appendix_insert.html"><strong aria-hidden="true">17.</strong> 附录.添加示例数据</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -173,99 +173,115 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="12-汇总数据"><a class="header" href="#12-汇总数据">12 汇总数据</a></h1>
-<h2 id="121-聚集函数"><a class="header" href="#121-聚集函数">12.1 聚集函数</a></h2>
-<p><strong>聚集函数</strong> 运行在行组上，计算和返回单个值的函数</p>
-<div class="table-wrapper"><table><thead><tr><th style="text-align: center">函数</th><th style="text-align: center">说明</th></tr></thead><tbody>
-<tr><td style="text-align: center">AVG()</td><td style="text-align: center">返回某列的平均值</td></tr>
-<tr><td style="text-align: center">COUNT()</td><td style="text-align: center">返回某列的行数</td></tr>
-<tr><td style="text-align: center">MAX()</td><td style="text-align: center">返回某列的最大值</td></tr>
-<tr><td style="text-align: center">MIN()</td><td style="text-align: center">返回某列的最小值</td></tr>
-<tr><td style="text-align: center">SUM()</td><td style="text-align: center">返回某列的值之和</td></tr>
-</tbody></table>
-</div>
-<h3 id="1211-avg函数"><a class="header" href="#1211-avg函数">12.1.1 AVG函数</a></h3>
-<p><strong>只用于单个列</strong>  AVG()只能用来确定特定数值列的平均值，而且列名必须作为函数参数给出。为了获得多个列的平均值，必须使用多个AVG()函数。</p>
-<p><strong>NULL值</strong>  AVG()函数忽略列值为NULL的行。</p>
-<h3 id="1212-count函数"><a class="header" href="#1212-count函数">12.1.2 COUNT函数</a></h3>
-<p>COUNT函数有两种使用方式：</p>
-<ul>
-<li>使用COUNT(*)对表中行的数目进行计数，不管表列中包含的是空值（NULL）还是非空值。</li>
-<li>使用COUNT(column)对特定列中具有值的行进行计数，忽略NULL值。</li>
-</ul>
-<h3 id="1213-max函数"><a class="header" href="#1213-max函数">12.1.3 MAX函数</a></h3>
-<p><strong>对非数值数据使用MAX()</strong>  虽然MAX()一般用来找出最大的数值或日期值，但MySQL允许将它用来返回任意列中的最大值，包括返回文本列中的最大值。在用于文本数据时，如果数据按相应的列排序，则MAX()返回最后一行。</p>
-<p><strong>NULL值</strong>  MAX()函数忽略列值为NULL的行。</p>
-<h3 id="1214-min函数"><a class="header" href="#1214-min函数">12.1.4 MIN函数</a></h3>
-<p><strong>对非数值数据使用MIN()</strong>  MIN()函数与MAX()函数类似，MySQL允许将它用来返回任意列中的最小值，包括返回文本列中的最小值。在用于文本数据时，如果数据按相应的列排序，则MIN()返回最前面的行。</p>
-<p><strong>NULL值</strong>  MAX()函数忽略列值为NULL的行。</p>
-<h3 id="1215-sum函数"><a class="header" href="#1215-sum函数">12.1.5 SUM函数</a></h3>
-<p><strong>NULL值</strong>  SUM()函数忽略列值为NULL的行。</p>
-<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
+                        <h1 id="7-数据过滤"><a class="header" href="#7-数据过滤">7 数据过滤</a></h1>
+<h2 id="71-组合where子句"><a class="header" href="#71-组合where子句">7.1 组合WHERE子句</a></h2>
+<p>为了进行更强的过滤控制，MySQL允许给出多个WHERE子句。这些子句可以两种方式使用：以AND子句的方式或OR子句的方式使用。</p>
+<p><strong>操作符（operator）</strong> 用来联结或改变WHERE子句中的子句的关键字。也称为逻辑操作符（logical operator）。</p>
+<h3 id="711-and操作符"><a class="header" href="#711-and操作符">7.1.1 AND操作符</a></h3>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks WHERE description is NULL AND parent is NULL;
 +----+-----------------+--------+-------+---------+-------------+--------+
 | Id | Name            | Result | Fault | Correct | Description | Parent |
 +----+-----------------+--------+-------+---------+-------------+--------+
-|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
-|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
 |  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
-|  4 | fake_case_1     |      1 |     0 |       0 |             |        |
-|  5 | create_test12   |      1 |     2 |       0 | NULL        | NULL   |
 +----+-----------------+--------+-------+---------+-------------+--------+
-5 rows in set (0.000 sec)
-
-MariaDB [testdatabase]&gt; SELECT SUM(result*fault) FROM tasks;
-+-------------------+
-| SUM(result*fault) |
-+-------------------+
-|                 3 |
-+-------------------+
-1 row in set (0.001 sec)
-</code></pre>
-<h2 id="122-聚集不同值"><a class="header" href="#122-聚集不同值">12.2 聚集不同值</a></h2>
-<p><strong>以上5个聚集函数都可以做如下使用</strong></p>
-<ul>
-<li>对所有的行执行计算，指定ALL参数或不给参数（因为ALL是默认行为）；</li>
-<li>只包含不同的值，指定<em>DISTINCT</em>参数。</li>
-</ul>
-<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
-+----+-----------------+--------+-------+---------+-------------+--------+
-| Id | Name            | Result | Fault | Correct | Description | Parent |
-+----+-----------------+--------+-------+---------+-------------+--------+
-|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
-|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
-|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
-|  4 | fake_case_1     |      1 |     0 |       0 |             |        |
-|  5 | create_test12   |      1 |     2 |       0 | NULL        | NULL   |
-+----+-----------------+--------+-------+---------+-------------+--------+
-5 rows in set (0.001 sec)
-
-MariaDB [testdatabase]&gt; SELECT SUM(result) FROM tasks;
-+-------------+
-| SUM(result) |
-+-------------+
-|           4 |
-+-------------+
 1 row in set (0.000 sec)
-
-MariaDB [testdatabase]&gt; SELECT SUM(DISTINCT result) FROM tasks;
-+----------------------+
-| SUM(DISTINCT result) |
-+----------------------+
-|                    1 |
-+----------------------+
-1 row in set (0.001 sec)
 </code></pre>
-<p>DISTINCT不能用于COUNT(*)，因此不允许使用COUNT（DISTINCT），否则会产生错误。类似地，DISTINCT必须使用列名，不能用于计算或表达式。</p>
+<p><strong>AND</strong> 用在WHERE子句中的关键字，用来指示检索<em>满足所有给定条件的行</em>。可以添加多个过滤条件，每添加一条就要使用一个AND。</p>
+<h3 id="712-or操作符"><a class="header" href="#712-or操作符">7.1.2 OR操作符</a></h3>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks WHERE description=&quot;&quot; OR parent=&quot;&quot;;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+2 rows in set (0.000 sec)
+</code></pre>
+<p><strong>OR</strong> WHERE子句中使用的关键字，用来表示检索匹配任一给定条件的行。</p>
+<h3 id="713-计算次序"><a class="header" href="#713-计算次序">7.1.3 计算次序</a></h3>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT * FROM tasks WHERE id=1 OR id=3 AND description IS NOT NULL;
++----+----------------+--------+-------+---------+-------------+--------+
+| Id | Name           | Result | Fault | Correct | Description | Parent |
++----+----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test |      1 |     1 |       0 | NULL        |        |
++----+----------------+--------+-------+---------+-------------+--------+
+1 row in set (0.000 sec)
+</code></pre>
+<p>上面的结果，AND指定了description不是NULL，但输出的description是NULL。如果先计算OR，应该得到id=1和id=3两行，然后计算AND，description非NULL，两行都不满足。这是因为<em><strong>SQL（像多数语言一样）在处理OR操作符前，优先处理AND操作符</strong></em>。</p>
+<p>为了使运算按照预期，我们可以使用括号来分组操作符。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT * FROM tasks WHERE (id=1 OR id=3) AND description IS NOT NULL;
+Empty set (0.000 sec)
+</code></pre>
+<p><strong>在WHERE子句中使用圆括号</strong> 任何时候使用具有AND和OR操作符的WHERE子句，都应该使用圆括号明确地分组操作符。不要过分依赖默认计算次序，即使它确实是你想要的东西也是如此。使用圆括号没有什么坏处，它能消除歧义。</p>
+<h2 id="72-in操作符"><a class="header" href="#72-in操作符">7.2 IN操作符</a></h2>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks WHERE id IN (1,3);
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+2 rows in set (0.000 sec)
+</code></pre>
+<p><strong>IN</strong> WHERE子句中用来指定要匹配值的清单的关键字，功能与OR相当。优点: </p>
+<ul>
+<li>在使用长的合法选项清单时，IN操作符的语法更清楚且更直观。</li>
+<li>在使用IN时，计算的次序更容易管理（因为使用的操作符更少）</li>
+<li>IN操作符一般比OR操作符清单执行更快。</li>
+<li>是可以包含其他SELECT语句，使得能够更动态地建立WHERE子句。</li>
+</ul>
+<h2 id="73-not操作符"><a class="header" href="#73-not操作符">7.3 NOT操作符</a></h2>
+<p><strong>NOT</strong> WHERE子句中用来否定后跟条件的关键字。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT * FROM tasks WHERE description IS NOT NULL;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+1 row in set (0.000 sec)
+</code></pre>
+<p><strong>为什么使用NOT?</strong> 对于简单的WHERE子句，使用NOT确实没有什么优势。但在更复杂的子句中，NOT是非常有用的。例如，在与IN操作符联合使用时，NOT使找出与条件列表不匹配的行非常简单。</p>
+<p><strong>MySQL中的NOT</strong> MySQL支持使用NOT对IN、BETWEEN和EXISTS子句取反，这与多数其他DBMS允许使用NOT对各种条件取反有很大的差别。</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="chapter_7.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="chapter_6.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="chapter_13.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="chapter_12.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -275,11 +291,11 @@ MariaDB [testdatabase]&gt; SELECT SUM(DISTINCT result) FROM tasks;
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="chapter_7.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="chapter_6.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="chapter_13.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="chapter_12.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

@@ -1,6 +1,11 @@
 # Summary
 - [了解SQL](./chapter_1.md)
 - [MySQL简介](./chapter_2.md)
+- [使用MySQL](./chapter_3.md)
+- [检索数据](./chapter_4.md)
+- [排序检索数据](./chapter_5.md)
+- [过滤数据](./chapter_6.md)
+- [数据过滤](./chapter_7.md)
 - [汇总数据](./chapter_12.md)
 - [数据分组](./chapter_13.md)
 - [使用子查询](./chapter_14.md)
@@ -8,5 +13,6 @@
 - [创建高级联结](./chapter_16.md)
 - [组合查询](./chapter_17.md)
 - [全文本搜索](./chapter_18.md)
+- [插入数据](./chapter_19.md)
 - [附录.创建示例数据库结构](./appendix_create.md)
 - [附录.添加示例数据](./appendix_insert.md)

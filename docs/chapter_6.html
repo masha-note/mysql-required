@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>附录.创建示例数据库结构 - MySQL必知必会</title>
+        <title>过滤数据 - MySQL必知必会</title>
 
 
         <!-- Custom HTML head -->
@@ -88,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 了解SQL</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> MySQL简介</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 使用MySQL</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 检索数据</a></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> 排序检索数据</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> 过滤数据</a></li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> 数据过滤</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">8.</strong> 汇总数据</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">9.</strong> 数据分组</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">10.</strong> 使用子查询</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">11.</strong> 联结表</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">12.</strong> 创建高级联结</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">13.</strong> 组合查询</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">14.</strong> 全文本搜索</a></li><li class="chapter-item expanded "><a href="chapter_19.html"><strong aria-hidden="true">15.</strong> 插入数据</a></li><li class="chapter-item expanded "><a href="appendix_create.html" class="active"><strong aria-hidden="true">16.</strong> 附录.创建示例数据库结构</a></li><li class="chapter-item expanded "><a href="appendix_insert.html"><strong aria-hidden="true">17.</strong> 附录.添加示例数据</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 了解SQL</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> MySQL简介</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 使用MySQL</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 检索数据</a></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> 排序检索数据</a></li><li class="chapter-item expanded "><a href="chapter_6.html" class="active"><strong aria-hidden="true">6.</strong> 过滤数据</a></li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> 数据过滤</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">8.</strong> 汇总数据</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">9.</strong> 数据分组</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">10.</strong> 使用子查询</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">11.</strong> 联结表</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">12.</strong> 创建高级联结</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">13.</strong> 组合查询</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">14.</strong> 全文本搜索</a></li><li class="chapter-item expanded "><a href="chapter_19.html"><strong aria-hidden="true">15.</strong> 插入数据</a></li><li class="chapter-item expanded "><a href="appendix_create.html"><strong aria-hidden="true">16.</strong> 附录.创建示例数据库结构</a></li><li class="chapter-item expanded "><a href="appendix_insert.html"><strong aria-hidden="true">17.</strong> 附录.添加示例数据</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -173,116 +173,144 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="创建示例数据库结构"><a class="header" href="#创建示例数据库结构">创建示例数据库结构</a></h1>
-<pre><code class="language-SQL">########################################
-# MySQL Crash Course
-# http://www.forta.com/books/0672327120/
-# Example table creation scripts
-########################################
+                        <h1 id="6-过滤数据"><a class="header" href="#6-过滤数据">6 过滤数据</a></h1>
+<h2 id="61-使用where子句"><a class="header" href="#61-使用where子句">6.1 使用WHERE子句</a></h2>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT id, name FROM tasks WHERE fault=1;
++----+-----------------+
+| id | name            |
++----+-----------------+
+|  1 | db_create_test  |
+|  3 | db_create_test2 |
++----+-----------------+
+2 rows in set (0.000 sec)
+</code></pre>
+<p><strong>SQL过滤与应用过滤</strong> 数据也可以在应用层过滤。为此目的，SQL的SELECT语句为客户机应用检索出超过实际所需的数据，然后客户机代码对返回数据进行循环，以提取出需要的行。</p>
+<p>通常，这种实现并不令人满意。因此，对数据库进行了优化，以便快速有效地对数据进行过滤。让客户机应用（或开发语言）处理数据库的工作将会极大地影响应用的性能，并且使所创建的应用完全不具备可伸缩性。此外，如果在客户机上过滤数据，服务器不得不通过网络发送多余的数据，这将导致网络带宽的浪费。</p>
+<h2 id="62-where子句操作符"><a class="header" href="#62-where子句操作符">6.2 WHERE子句操作符</a></h2>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">操作符</th><th style="text-align: center">说明</th></tr></thead><tbody>
+<tr><td style="text-align: center">=</td><td style="text-align: center">等于</td></tr>
+<tr><td style="text-align: center">&lt;&gt;</td><td style="text-align: center">不等于</td></tr>
+<tr><td style="text-align: center">!=</td><td style="text-align: center">不等于</td></tr>
+<tr><td style="text-align: center">&lt;</td><td style="text-align: center">小于</td></tr>
+<tr><td style="text-align: center">&lt;=</td><td style="text-align: center">小于等于</td></tr>
+<tr><td style="text-align: center">&gt;</td><td style="text-align: center">大于</td></tr>
+<tr><td style="text-align: center">&gt;=</td><td style="text-align: center">大于等于</td></tr>
+<tr><td style="text-align: center">BETWEEN</td><td style="text-align: center">在指定的两个值之间</td></tr>
+</tbody></table>
+</div>
+<h3 id="621-检查单个值"><a class="header" href="#621-检查单个值">6.2.1 检查单个值</a></h3>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT id, name FROM tasks WHERE fault=1;
++----+-----------------+
+| id | name            |
++----+-----------------+
+|  1 | db_create_test  |
+|  3 | db_create_test2 |
++----+-----------------+
+2 rows in set (0.000 sec)
 
+MariaDB [testdatabase]&gt; SELECT id, name FROM tasks WHERE fault&lt;1;
++----+-----------------+
+| id | name            |
++----+-----------------+
+|  2 | db_create_test1 |
++----+-----------------+
+1 row in set (0.000 sec)
 
-########################
-# Create customers table
-########################
-CREATE TABLE customers
-(
-  cust_id      int       NOT NULL AUTO_INCREMENT,
-  cust_name    char(50)  NOT NULL ,
-  cust_address char(50)  NULL ,
-  cust_city    char(50)  NULL ,
-  cust_state   char(5)   NULL ,
-  cust_zip     char(10)  NULL ,
-  cust_country char(50)  NULL ,
-  cust_contact char(50)  NULL ,
-  cust_email   char(255) NULL ,
-  PRIMARY KEY (cust_id)
-) ENGINE=InnoDB;
+MariaDB [testdatabase]&gt; SELECT id, name FROM tasks WHERE fault&lt;=1;
++----+-----------------+
+| id | name            |
++----+-----------------+
+|  1 | db_create_test  |
+|  2 | db_create_test1 |
+|  3 | db_create_test2 |
++----+-----------------+
+3 rows in set (0.000 sec)
+</code></pre>
+<h3 id="622-不匹配检查"><a class="header" href="#622-不匹配检查">6.2.2 不匹配检查</a></h3>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT id, name FROM tasks WHERE fault&lt;&gt;0;
++----+-----------------+
+| id | name            |
++----+-----------------+
+|  1 | db_create_test  |
+|  3 | db_create_test2 |
++----+-----------------+
+2 rows in set (0.000 sec)
 
-#########################
-# Create orderitems table
-#########################
-CREATE TABLE orderitems
-(
-  order_num  int          NOT NULL ,
-  order_item int          NOT NULL ,
-  prod_id    char(10)     NOT NULL ,
-  quantity   int          NOT NULL ,
-  item_price decimal(8,2) NOT NULL ,
-  PRIMARY KEY (order_num, order_item)
-) ENGINE=InnoDB;
+MariaDB [testdatabase]&gt; SELECT id, name FROM tasks WHERE fault!=0;
++----+-----------------+
+| id | name            |
++----+-----------------+
+|  1 | db_create_test  |
+|  3 | db_create_test2 |
++----+-----------------+
+2 rows in set (0.000 sec)
+</code></pre>
+<h3 id="623-范围值检查"><a class="header" href="#623-范围值检查">6.2.3 范围值检查</a></h3>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT id, name FROM tasks WHERE fault BETWEEN 1 AND 0;
+Empty set (0.000 sec)
 
+MariaDB [testdatabase]&gt; SELECT id, name FROM tasks WHERE fault BETWEEN 0 AND 1;
++----+-----------------+
+| id | name            |
++----+-----------------+
+|  1 | db_create_test  |
+|  2 | db_create_test1 |
+|  3 | db_create_test2 |
++----+-----------------+
+3 rows in set (0.000 sec)
+</code></pre>
+<p>在使用BETWEEN时，必须指定两个值——所需范围的低端值和高端值。这两个值必须用AND关键字分隔。BETWEEN匹配范围中所有的值，包括指定的开始值和结束值。</p>
+<h3 id="624-空值检查"><a class="header" href="#624-空值检查">6.2.4 空值检查</a></h3>
+<p>在创建表时，表设计人员可以指定其中的列是否可以不包含值。在一个列不包含值时，称其为包含空值NULL。</p>
+<p><strong>NULL</strong> 无值（no value），它与字段包含0、空字符串或仅仅包含空格不同。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT name, description FROM tasks WHERE description IS NULL;
++-----------------+-------------+
+| name            | description |
++-----------------+-------------+
+| db_create_test  | NULL        |
+| db_create_test2 | NULL        |
++-----------------+-------------+
+2 rows in set (0.000 sec)
+</code></pre>
+<p><strong>NULL与不匹配</strong> 在通过过滤选择出不具有特定值的行时，你可能希望返回具有NULL值的行。但是，不行。因为未知具有特殊的含义，数据库不知道它们是否匹配，所以在匹配过滤或不匹配过滤时不返回它们。</p>
+<p>因此，在过滤数据时，一定要验证返回数据中确实给出了被过滤列具有NULL的行。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+3 rows in set (0.000 sec)
 
-#####################
-# Create orders table
-#####################
-CREATE TABLE orders
-(
-  order_num  int      NOT NULL AUTO_INCREMENT,
-  order_date datetime NOT NULL ,
-  cust_id    int      NOT NULL ,
-  PRIMARY KEY (order_num)
-) ENGINE=InnoDB;
+MariaDB [testdatabase]&gt; SELECT parent FROM tasks WHERE description is not NULL;
++--------+
+| parent |
++--------+
+| NULL   |
++--------+
+1 row in set (0.000 sec)
 
-#######################
-# Create products table
-#######################
-CREATE TABLE products
-(
-  prod_id    char(10)      NOT NULL,
-  vend_id    int           NOT NULL ,
-  prod_name  char(255)     NOT NULL ,
-  prod_price decimal(8,2)  NOT NULL ,
-  prod_desc  text          NULL ,
-  PRIMARY KEY(prod_id)
-) ENGINE=InnoDB;
-
-######################
-# Create vendors table
-######################
-CREATE TABLE vendors
-(
-  vend_id      int      NOT NULL AUTO_INCREMENT,
-  vend_name    char(50) NOT NULL ,
-  vend_address char(50) NULL ,
-  vend_city    char(50) NULL ,
-  vend_state   char(5)  NULL ,
-  vend_zip     char(10) NULL ,
-  vend_country char(50) NULL ,
-  PRIMARY KEY (vend_id)
-) ENGINE=InnoDB;
-
-###########################
-# Create productnotes table
-###########################
-CREATE TABLE productnotes
-(
-  note_id    int           NOT NULL AUTO_INCREMENT,
-  prod_id    char(10)      NOT NULL,
-  note_date datetime       NOT NULL,
-  note_text  text          NULL ,
-  PRIMARY KEY(note_id),
-  FULLTEXT(note_text)
-) ENGINE=MyISAM;
-
-
-#####################
-# Define foreign keys
-#####################
-ALTER TABLE orderitems ADD CONSTRAINT fk_orderitems_orders FOREIGN KEY (order_num) REFERENCES orders (order_num);
-ALTER TABLE orderitems ADD CONSTRAINT fk_orderitems_products FOREIGN KEY (prod_id) REFERENCES products (prod_id);
-ALTER TABLE orders ADD CONSTRAINT fk_orders_customers FOREIGN KEY (cust_id) REFERENCES customers (cust_id);
-ALTER TABLE products ADD CONSTRAINT fk_products_vendors FOREIGN KEY (vend_id) REFERENCES vendors (vend_id);
+MariaDB [testdatabase]&gt; SELECT parent FROM tasks WHERE description is NULL;
++--------+
+| parent |
++--------+
+|        |
+| NULL   |
++--------+
+2 rows in set (0.001 sec)
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="chapter_19.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="chapter_5.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="appendix_insert.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="chapter_7.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -292,11 +320,11 @@ ALTER TABLE products ADD CONSTRAINT fk_products_vendors FOREIGN KEY (vend_id) RE
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="chapter_19.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="chapter_5.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="appendix_insert.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="chapter_7.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
