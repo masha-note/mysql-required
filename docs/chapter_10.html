@@ -1,0 +1,441 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>创建计算字段 - MySQL必知必会</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 了解SQL</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> MySQL简介</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 使用MySQL</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 检索数据</a></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> 排序检索数据</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> 过滤数据</a></li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> 数据过滤</a></li><li class="chapter-item expanded "><a href="chapter_8.html"><strong aria-hidden="true">8.</strong> 用通配符进行过滤</a></li><li class="chapter-item expanded "><a href="chapter_9.html"><strong aria-hidden="true">9.</strong> 用正则表达式进行搜索</a></li><li class="chapter-item expanded "><a href="chapter_10.html" class="active"><strong aria-hidden="true">10.</strong> 创建计算字段</a></li><li class="chapter-item expanded "><a href="chapter_11.html"><strong aria-hidden="true">11.</strong> 使用数据处理函数</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">12.</strong> 汇总数据</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">13.</strong> 数据分组</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">14.</strong> 使用子查询</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">15.</strong> 联结表</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">16.</strong> 创建高级联结</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">17.</strong> 组合查询</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">18.</strong> 全文本搜索</a></li><li class="chapter-item expanded "><a href="chapter_19.html"><strong aria-hidden="true">19.</strong> 插入数据</a></li><li class="chapter-item expanded "><a href="chapter_20.html"><strong aria-hidden="true">20.</strong> 更新和删除数据</a></li><li class="chapter-item expanded "><a href="chapter_21.html"><strong aria-hidden="true">21.</strong> 创建和操纵表</a></li><li class="chapter-item expanded "><a href="chapter_26.html"><strong aria-hidden="true">22.</strong> 管理事务处理</a></li><li class="chapter-item expanded "><a href="appendixD.html"><strong aria-hidden="true">23.</strong> 附录D MySQL数据类型</a></li><li class="chapter-item expanded "><a href="appendix_create.html"><strong aria-hidden="true">24.</strong> 附录.创建示例数据库结构</a></li><li class="chapter-item expanded "><a href="appendix_insert.html"><strong aria-hidden="true">25.</strong> 附录.添加示例数据</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">MySQL必知必会</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="10-创建计算字段"><a class="header" href="#10-创建计算字段">10 创建计算字段</a></h1>
+<h2 id="101-计算字段"><a class="header" href="#101-计算字段">10.1 计算字段</a></h2>
+<p><strong>字段（field）</strong> 基本上与列（column）的意思相同，经常互换使用，不过数据库列一般称为列，而术语字段通常用在计算字段的连接上。</p>
+<p><strong>客户机与服务器的格式</strong>  可在SQL语句内完成的许多转换和格式化工作都可以直接在客户机应用程序内完成。但一般来说，在数据库服务器上完成这些操作比在客户机中完成要快得多，因为DBMS是设计来快速有效地完成这种处理的。</p>
+<h2 id="102-拼接字段"><a class="header" href="#102-拼接字段">10.2 拼接字段</a></h2>
+<p>在MySQL的SELECT语句中，可使用Concat()函数来拼接两个列。</p>
+<p><strong>拼接（concatenate）</strong> 将值联结到一起构成单个值。</p>
+<p><strong>MySQL的不同之处</strong>  多数DBMS使用+或||来实现拼接，MySQL则使用Concat()函数来实现。当把SQL语句转换成MySQL语句时一定要把这个区别铭记在心。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM vendors;
++-----------+---------------+
+| name      | location      |
++-----------+---------------+
+| alphabet  | mountain view |
+| amazon    | seattle       |
+| amd       | california    |
+| apple     | california    |
+| intel     | california    |
+| meta      | california    |
+| microsoft | washington    |
+| nvidia    | california    |
+| tesla     | california    |
++-----------+---------------+
+9 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT Concat(name, ' (', location, ')') FROM vendors ORDER BY name;
++-----------------------------------+
+| Concat(name, ' (', location, ')') |
++-----------------------------------+
+| alphabet (mountain view)          |
+| amazon (seattle)                  |
+| amd (california)                  |
+| apple (california)                |
+| intel (california)                |
+| meta (california)                 |
+| microsoft (washington)            |
+| nvidia (california)               |
+| tesla (california)                |
++-----------------------------------+
+9 rows in set (0.000 sec)
+</code></pre>
+<p><strong>Concat()拼接串</strong>，即把多个串连接起来形成一个较长的串。Concat()需要一个或多个指定的串，各个串之间用逗号分隔。上面的SELECT语句连接以下4个元素成一个列：</p>
+<ul>
+<li>存储在name列中的名字</li>
+<li>包含一个空格和一个左圆括号的串</li>
+<li>存储在location列中的位置</li>
+<li>包含一个右圆括号的串</li>
+</ul>
+<p><strong>Trim函数</strong>  MySQL除了支持RTrim()（正如刚才所见，它去掉串右边的空格），还支持LTrim()（去掉串左边的空格）以及Trim()（去掉串左右两边的空格）。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM vendors;
++-----------+---------------+
+| name      | location      |
++-----------+---------------+
+| alphabet  | mountain view |
+| amazon    | seattle       |
+| amd       | california    |
+| apple     | california    |
+| intel     | california    |
+| meta      | california    |
+| microsoft | washington    |
+| nvidia    | california    |
+| tesla     | california    |
++-----------+---------------+
+9 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT Concat(name, LTrim(' ('), location, ')') FROM vendors ORDER BY name;
++------------------------------------------+
+| Concat(name, LTrim(' ('), location, ')') |
++------------------------------------------+
+| alphabet(mountain view)                  |
+| amazon(seattle)                          |
+| amd(california)                          |
+| apple(california)                        |
+| intel(california)                        |
+| meta(california)                         |
+| microsoft(washington)                    |
+| nvidia(california)                       |
+| tesla(california)                        |
++------------------------------------------+
+9 rows in set (0.001 sec)
+</code></pre>
+<p><strong>使用别名</strong></p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM vendors;
++-----------+---------------+
+| name      | location      |
++-----------+---------------+
+| alphabet  | mountain view |
+| amazon    | seattle       |
+| amd       | california    |
+| apple     | california    |
+| intel     | california    |
+| meta      | california    |
+| microsoft | washington    |
+| nvidia    | california    |
+| tesla     | california    |
++-----------+---------------+
+9 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT Concat(name,' (',location,')') AS vend_title FROM vendors;
++--------------------------+
+| vend_title               |
++--------------------------+
+| alphabet (mountain view) |
+| amazon (seattle)         |
+| amd (california)         |
+| apple (california)       |
+| intel (california)       |
+| meta (california)        |
+| microsoft (washington)   |
+| nvidia (california)      |
+| tesla (california)       |
++--------------------------+
+9 rows in set (0.001 sec)
+</code></pre>
+<p><strong>别名的其他用途</strong>  别名还有其他用途。常见的用途包括在实际的表列名包含不符合规定的字符（如空格）时重新命名它，在原来的名字含混或容易误解时扩充它，等等。</p>
+<p><strong>导出列</strong>  别名有时也称为导出列（derived column），不管称为什么，它们所代表的都是相同的东西。</p>
+<h2 id="103-执行算术计算"><a class="header" href="#103-执行算术计算">10.3 执行算术计算</a></h2>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM orders;
++---------+----------+------------+
+| prod_id | quantity | item_price |
++---------+----------+------------+
+| ANV01   |       10 |       5.99 |
+| ANV02   |        3 |       9.99 |
+| FB      |        1 |         10 |
+| YNT2    |        5 |         10 |
++---------+----------+------------+
+4 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT prod_id,quantity,item_price,quantity*item_price AS expand_price FROM orders;
++---------+----------+------------+--------------------+
+| prod_id | quantity | item_price | expand_price       |
++---------+----------+------------+--------------------+
+| ANV01   |       10 |       5.99 |  59.89999771118164 |
+| ANV02   |        3 |       9.99 | 29.969999313354492 |
+| FB      |        1 |         10 |                 10 |
+| YNT2    |        5 |         10 |                 50 |
++---------+----------+------------+--------------------+
+4 rows in set (0.001 sec)
+</code></pre>
+<p><strong>MySql的float存在精度问题</strong> 浮点数在计算机中的内部表示方式是使用有限的二进制位数进行近似存储的。由于浮点数的精度是有限的，当我们进行一些复杂的计算时，可能会导小数部分的精度损失。</p>
+<p><strong>解决方法</strong></p>
+<ul>
+<li>
+<p>使用DECIMAL类型：DECIMAL(8,2)指定了存储8位数字，小数部分保留2位</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; DESCRIBE orders;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| prod_id    | varchar(50)  | NO   | PRI | NULL    |       |
+| quantity   | int(11)      | NO   |     | NULL    |       |
+| item_price | decimal(8,2) | NO   |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+3 rows in set (0.002 sec)
+
+MariaDB [testdatabase]&gt; SELECT prod_id,quantity,item_price,quantity*item_price AS expand_price FROM orders;
++---------+----------+------------+--------------+
+| prod_id | quantity | item_price | expand_price |
++---------+----------+------------+--------------+
+| ANV01   |       10 |       5.99 |        59.90 |
+| ANV02   |        3 |       9.99 |        29.97 |
+| FB      |        1 |      10.00 |        10.00 |
+| YNT2    |        5 |      10.00 |        50.00 |
++---------+----------+------------+--------------+
+4 rows in set (0.001 sec)
+</code></pre>
+</li>
+<li>
+<p>使用ROUND函数：ROUND函数可以将计算结果四舍五入到指定的精度</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; DESCRIBE orders;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| prod_id    | varchar(50) | NO   | PRI | NULL    |       |
+| quantity   | int(11)     | NO   |     | NULL    |       |
+| item_price | float       | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT prod_id,quantity,item_price,ROUND(quantity*item_price,2) AS expand_price FROM orders;
++---------+----------+------------+--------------+
+| prod_id | quantity | item_price | expand_price |
++---------+----------+------------+--------------+
+| ANV01   |       10 |       5.99 |        59.90 |
+| ANV02   |        3 |       9.99 |        29.97 |
+| FB      |        1 |         10 |        10.00 |
+| YNT2    |        5 |         10 |        50.00 |
++---------+----------+------------+--------------+
+4 rows in set (0.000 sec)
+</code></pre>
+</li>
+<li>
+<p>使用CAST函数：CAST将一个值转换为指定的数据类型。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; DESCRIBE orders;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| prod_id    | varchar(50) | NO   | PRI | NULL    |       |
+| quantity   | int(11)     | NO   |     | NULL    |       |
+| item_price | float       | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT prod_id,quantity,item_price,CAST(quantity*item_price AS DECIMAL(8,2)) AS expand_price FROM orders;
++---------+----------+------------+--------------+
+| prod_id | quantity | item_price | expand_price |
++---------+----------+------------+--------------+
+| ANV01   |       10 |       5.99 |        59.90 |
+| ANV02   |        3 |       9.99 |        29.97 |
+| FB      |        1 |         10 |        10.00 |
+| YNT2    |        5 |         10 |        50.00 |
++---------+----------+------------+--------------+
+4 rows in set (0.001 sec)
+</code></pre>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter_9.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="chapter_11.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter_9.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="chapter_11.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 了解SQL</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> MySQL简介</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 使用MySQL</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 检索数据</a></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> 排序检索数据</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> 过滤数据</a></li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> 数据过滤</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">8.</strong> 汇总数据</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">9.</strong> 数据分组</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">10.</strong> 使用子查询</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">11.</strong> 联结表</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">12.</strong> 创建高级联结</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">13.</strong> 组合查询</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">14.</strong> 全文本搜索</a></li><li class="chapter-item expanded "><a href="chapter_19.html"><strong aria-hidden="true">15.</strong> 插入数据</a></li><li class="chapter-item expanded "><a href="appendix_create.html"><strong aria-hidden="true">16.</strong> 附录.创建示例数据库结构</a></li><li class="chapter-item expanded "><a href="appendix_insert.html"><strong aria-hidden="true">17.</strong> 附录.添加示例数据</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 了解SQL</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> MySQL简介</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 使用MySQL</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 检索数据</a></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> 排序检索数据</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> 过滤数据</a></li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> 数据过滤</a></li><li class="chapter-item expanded "><a href="chapter_8.html"><strong aria-hidden="true">8.</strong> 用通配符进行过滤</a></li><li class="chapter-item expanded "><a href="chapter_9.html"><strong aria-hidden="true">9.</strong> 用正则表达式进行搜索</a></li><li class="chapter-item expanded "><a href="chapter_10.html"><strong aria-hidden="true">10.</strong> 创建计算字段</a></li><li class="chapter-item expanded "><a href="chapter_11.html"><strong aria-hidden="true">11.</strong> 使用数据处理函数</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">12.</strong> 汇总数据</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">13.</strong> 数据分组</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">14.</strong> 使用子查询</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">15.</strong> 联结表</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">16.</strong> 创建高级联结</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">17.</strong> 组合查询</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">18.</strong> 全文本搜索</a></li><li class="chapter-item expanded "><a href="chapter_19.html"><strong aria-hidden="true">19.</strong> 插入数据</a></li><li class="chapter-item expanded "><a href="chapter_20.html"><strong aria-hidden="true">20.</strong> 更新和删除数据</a></li><li class="chapter-item expanded "><a href="chapter_21.html"><strong aria-hidden="true">21.</strong> 创建和操纵表</a></li><li class="chapter-item expanded "><a href="chapter_26.html"><strong aria-hidden="true">22.</strong> 管理事务处理</a></li><li class="chapter-item expanded "><a href="appendixD.html"><strong aria-hidden="true">23.</strong> 附录D MySQL数据类型</a></li><li class="chapter-item expanded "><a href="appendix_create.html"><strong aria-hidden="true">24.</strong> 附录.创建示例数据库结构</a></li><li class="chapter-item expanded "><a href="appendix_insert.html"><strong aria-hidden="true">25.</strong> 附录.添加示例数据</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -700,7 +700,817 @@ MariaDB [testdatabase]&gt; SELECT * FROM tasks WHERE description IS NOT NULL;
 </code></pre>
 <p><strong>为什么使用NOT?</strong> 对于简单的WHERE子句，使用NOT确实没有什么优势。但在更复杂的子句中，NOT是非常有用的。例如，在与IN操作符联合使用时，NOT使找出与条件列表不匹配的行非常简单。</p>
 <p><strong>MySQL中的NOT</strong> MySQL支持使用NOT对IN、BETWEEN和EXISTS子句取反，这与多数其他DBMS允许使用NOT对各种条件取反有很大的差别。</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="12-汇总数据"><a class="header" href="#12-汇总数据">12 汇总数据</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="8-用通配符进行过滤"><a class="header" href="#8-用通配符进行过滤">8 用通配符进行过滤</a></h1>
+<h2 id="81-like操作符"><a class="header" href="#81-like操作符">8.1 LIKE操作符</a></h2>
+<p><strong>通配符（wildcard）</strong> 用来匹配值的一部分的特殊字符。</p>
+<p><strong>搜索模式（search pattern）</strong> 由字面值、通配符或两者组合构成的搜索条件。</p>
+<h3 id="811-百分号通配符"><a class="header" href="#811-百分号通配符">8.1.1 百分号(%)通配符</a></h3>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT id, name FROM tasks WHERE name LIKE &quot;%1&quot;;
++----+-----------------+
+| id | name            |
++----+-----------------+
+|  2 | db_create_test1 |
++----+-----------------+
+1 row in set (0.000 sec)
+</code></pre>
+<p>此例子使用了搜索模式'%1'。在执行这条子句时，将检索任意以1结尾的词。%告诉MySQL接受1之前的任意字符，不管它有多少字符。</p>
+<p><strong>区分大小写</strong> 根据MySQL的配置方式，搜索可以是区分大小写的。如果区分大小写，'jet%'与JetPack将不匹配。</p>
+<p>要注意到，除了一个或多个字符外，%还能匹配0个字符。%代表搜索模式中给定位置的0个、1个或多个字符。</p>
+<p><strong>注意NULL</strong> 虽然似乎%通配符可以匹配任何东西，但有一个例外，即NULL。即使是WHERE prod_name LIKE '%'也不能匹配用值NULL作为产品名的行。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT id, name FROM tasks WHERE description LIKE &quot;%&quot;;
++----+-----------------+
+| id | name            |
++----+-----------------+
+|  2 | db_create_test1 |
++----+-----------------+
+1 row in set (0.000 sec)
+</code></pre>
+<h3 id="812-下划线_通配符"><a class="header" href="#812-下划线_通配符">8.1.2 下划线(_)通配符</a></h3>
+<p>下划线的用途与%一样，但下划线只匹配单个字符而不是多个字符。</p>
+<p>与%能匹配0个字符不一样，_总是匹配一个字符，不能多也不能少。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT id, name FROM tasks WHERE name LIKE &quot;%test_&quot;;
++----+-----------------+
+| id | name            |
++----+-----------------+
+|  2 | db_create_test1 |
+|  3 | db_create_test2 |
++----+-----------------+
+2 rows in set (0.001 sec)
+</code></pre>
+<h2 id="82-使用通配符的技巧"><a class="header" href="#82-使用通配符的技巧">8.2 使用通配符的技巧</a></h2>
+<p>正如所见，MySQL的通配符很有用。但这种功能是有代价的：通配符搜索的处理一般要比前面讨论的其他搜索所花时间更长。这里给出一些使用通配符要记住的技巧。</p>
+<ul>
+<li>不要过度使用通配符。<em><strong>如果其他操作符能达到相同的目的，应该使用其他操作符</strong></em>。 </li>
+<li>在确实需要使用通配符时，除非绝对有必要，否则<em><strong>不要把它们用在搜索模式的开始处</strong></em>。把通配符置于搜索模式的开始处，搜索起来是最慢的。 </li>
+<li>仔细注意通配符的位置。如果放错地方，可能不会返回想要的数据。</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="9-用正则表达式进行搜索"><a class="header" href="#9-用正则表达式进行搜索">9 用正则表达式进行搜索</a></h1>
+<h2 id="92-使用mysql正则表达式"><a class="header" href="#92-使用mysql正则表达式">9.2 使用MySQL正则表达式</a></h2>
+<p>MySQL仅支持多数正则表达式实现的一个很小的子集。</p>
+<h3 id="921-基本字符匹配"><a class="header" href="#921-基本字符匹配">9.2.1 基本字符匹配</a></h3>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP 'test';
++-----------------+
+| name            |
++-----------------+
+| db_create_test  |
+| db_create_test1 |
+| db_create_test2 |
++-----------------+
+3 rows in set (0.027 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP 'test.';
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
++-----------------+
+2 rows in set (0.000 sec)
+</code></pre>
+<p>以上的功能可以由LIKE实现，正则表达式没有带来太多好处（可能还会降低性能）。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP 'test';
++-----------------+
+| name            |
++-----------------+
+| db_create_test  |
+| db_create_test1 |
+| db_create_test2 |
++-----------------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name LIKE 'test';
+Empty set (0.000 sec)
+</code></pre>
+<p><strong>LIKE和REGEXP</strong> LIKE匹配整个列。如果被匹配的文本在列值中出现，LIKE将不会找到它，相应的行也不被返回（除非使用通配符）。而REGEXP在列值内进行匹配，如果被匹配的文本在列值中出现，REGEXP将会找到它，相应的行将被返回。这是一个非常重要的差别。</p>
+<p>REGEXP使用^和$定位符后也可以匹配整行。</p>
+<p><strong>匹配不区分大小写</strong> MySQL中的正则表达式匹配（自版本3.23.4后）不区分大小写（即，大写和小写都匹配）。为区分大小写，可使用BINARY关键字，如WHERE prod_name REGEXP BINARY 'JetPack .000'。</p>
+<h3 id="922-进行or匹配"><a class="header" href="#922-进行or匹配">9.2.2 进行OR匹配</a></h3>
+<p>为搜索两个串之一（或者为这个串，或者为另一个串），使用 <code>|</code> 。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP 'test1|test2';
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
++-----------------+
+2 rows in set (0.000 sec)
+</code></pre>
+<p>使用 <code>|</code> 从功能上类似于在SELECT语句中使用OR语句，多个OR条件可并入单个正则表达式。</p>
+<p><strong>两个以上的OR条件</strong> 可以给出两个以上的OR条件。例如，'1000 | 2000 | 3000'将匹配1000或2000或3000。</p>
+<h3 id="923-匹配几个字符之一"><a class="header" href="#923-匹配几个字符之一">9.2.3 匹配几个字符之一</a></h3>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP 'test[12]';
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
++-----------------+
+2 rows in set (0.000 sec)
+</code></pre>
+<p>正如所见，[]是另一种形式的OR语句。事实上，正则表达式test[12]为test[1|2]的缩写，也可以使用后者。但是，需要用[]来定义OR语句查找什么。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
+|  4 | fake_case_1     |      1 |     0 |       0 |             |        |
++----+-----------------+--------+-------+---------+-------------+--------+
+4 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP 'test2|1';
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
+| fake_case_1     |
++-----------------+
+3 rows in set (0.001 sec)
+</code></pre>
+<p>这并不是期望的输出。两个要求的行被检索出来，但还检索出了另外1行。之所以这样是由于MySQL假定你的意思是'1'或'test2'。</p>
+<p>字符集合也可以被否定，即，它们将匹配除指定字符外的任何东西。为否定一个字符集，在集合的开始处放置一个^即可。因此，尽管[123]匹配字符1、2或3，但<sup class="footnote-reference"><a href="#123">1</a></sup>却匹配除这些字符外的任何东西。</p>
+<h3 id="924-匹配范围"><a class="header" href="#924-匹配范围">9.2.4 匹配范围</a></h3>
+<p>范围不限于完整的集合，[1-3]和[6-9]也是合法的范围。此外，范围不一定只是数值的，[a-z]匹配任意字母字符。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
+|  4 | fake_case_1     |      1 |     0 |       0 |             |        |
++----+-----------------+--------+-------+---------+-------------+--------+
+4 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP 'test[1-2]';
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
++-----------------+
+2 rows in set (0.000 sec)
+</code></pre>
+<h3 id="925-匹配特殊字符"><a class="header" href="#925-匹配特殊字符">9.2.5 匹配特殊字符</a></h3>
+<p>点(.)匹配任意字符，因此每个行都被检索出来。为了匹配特殊字符，必须用\\为前导。\\-表示查找-，\\.表示查找.。这种处理就是所谓的转义（escaping），正则表达式内具有特殊意义的所有字符都必须以这种方式转义。这包括.、|、[]以及迄今为止使用过的其他特殊字符。</p>
+<p>空白元字符</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">元符</th><th style="text-align: center">说明</th></tr></thead><tbody>
+<tr><td style="text-align: center">\\f</td><td style="text-align: center">换页</td></tr>
+<tr><td style="text-align: center">\\n</td><td style="text-align: center">换行</td></tr>
+<tr><td style="text-align: center">\\r</td><td style="text-align: center">回车</td></tr>
+<tr><td style="text-align: center">\\t</td><td style="text-align: center">制表</td></tr>
+<tr><td style="text-align: center">\\v</td><td style="text-align: center">纵向制表</td></tr>
+</tbody></table>
+</div>
+<p><strong>匹配\</strong>  为了匹配反斜杠（\）字符本身，需要使用\\。</p>
+<p><strong>\或\\?</strong>  多数正则表达式实现使用单个反斜杠转义特殊字符，以便能使用这些字符本身。但MySQL要求两个反斜杠（MySQL自己解释一个，正则表达式库解释另一个）。</p>
+<h3 id="926-匹配字符类"><a class="header" href="#926-匹配字符类">9.2.6 匹配字符类</a></h3>
+<p>存在找出你自己经常使用的数字、所有字母字符或所有数字字母字符等的匹配。为更方便工作，可以使用预定义的字符集称为字符类（character class）。</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">类</th><th style="text-align: center">说明</th></tr></thead><tbody>
+<tr><td style="text-align: center">[:alnum:]</td><td style="text-align: center">任意字母和数字（同[a-zA-Z0-9]）</td></tr>
+<tr><td style="text-align: center">[:alpha:]</td><td style="text-align: center">任意字符（同[a-zA-Z]）</td></tr>
+<tr><td style="text-align: center">[:blank:]</td><td style="text-align: center">空格和制表（同[\t]）</td></tr>
+<tr><td style="text-align: center">[:cntrl:]</td><td style="text-align: center">ASCII控制字符（ASCII0到31和127）</td></tr>
+<tr><td style="text-align: center">[:digit:]</td><td style="text-align: center">任意数字（同[0-9]）</td></tr>
+<tr><td style="text-align: center">[:graph:]</td><td style="text-align: center">与[:print:]相同，但不包括空格</td></tr>
+<tr><td style="text-align: center">[:lower:]</td><td style="text-align: center">任意小写字母（同[a-z]）</td></tr>
+<tr><td style="text-align: center">[:print:]</td><td style="text-align: center">任意可打印字符</td></tr>
+<tr><td style="text-align: center">[:punct:]</td><td style="text-align: center">既不在[:alnum:]又不在[:cntrl:]中的任意字符</td></tr>
+<tr><td style="text-align: center">[:space:]</td><td style="text-align: center">包括空格在内的任意空白字符（同[\\f\\n\\r\\t\\v]）</td></tr>
+<tr><td style="text-align: center">[:upper:]</td><td style="text-align: center">任意大写字母（同[A-Z]）</td></tr>
+<tr><td style="text-align: center">[:xdigit:]</td><td style="text-align: center">任意十六进制数字（同[a-fA-F0-9]）</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
+|  4 | fake_case_1     |      1 |     0 |       0 |             |        |
+|  5 | create_test12   |      1 |     2 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[[:digit:]]*&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test  |
+| db_create_test1 |
+| db_create_test2 |
+| create_test12   |
++-----------------+
+4 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[[:digit:]]+&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
+| create_test12   |
++-----------------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[[:digit:]]?&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test  |
+| db_create_test1 |
+| db_create_test2 |
+| create_test12   |
++-----------------+
+4 rows in set (0.001 sec)
+</code></pre>
+<h3 id="927-匹配多个实例"><a class="header" href="#927-匹配多个实例">9.2.7 匹配多个实例</a></h3>
+<p>重复元字符</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">元字符</th><th style="text-align: center">说明</th></tr></thead><tbody>
+<tr><td style="text-align: center">*</td><td style="text-align: center">0个或多个匹配</td></tr>
+<tr><td style="text-align: center">+</td><td style="text-align: center">1个或多个匹配(等于{1，})</td></tr>
+<tr><td style="text-align: center">?</td><td style="text-align: center">0个或1个匹配(等于{0，1})</td></tr>
+<tr><td style="text-align: center">{n}</td><td style="text-align: center">指定数目的匹配</td></tr>
+<tr><td style="text-align: center">{n,}</td><td style="text-align: center">不少于指定数目的匹配</td></tr>
+<tr><td style="text-align: center">{n,m}</td><td style="text-align: center">匹配数目的范围(m不超过255)</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
+|  4 | fake_case_1     |      1 |     0 |       0 |             |        |
+|  5 | create_test12   |      1 |     2 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[a-z0-9]*&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test  |
+| db_create_test1 |
+| db_create_test2 |
+| create_test12   |
++-----------------+
+4 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[a-z0-9]+&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
+| create_test12   |
++-----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[a-z0-9]?&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test  |
+| db_create_test1 |
+| db_create_test2 |
+| create_test12   |
++-----------------+
+4 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[a-z0-9]{1}&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
+| create_test12   |
++-----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[a-z0-9]{1,}&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
+| create_test12   |
++-----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[a-z0-9]{2,3}&quot;;
++---------------+
+| name          |
++---------------+
+| create_test12 |
++---------------+
+1 row in set (0.001 sec)
+</code></pre>
+<h3 id="928-定位符"><a class="header" href="#928-定位符">9.2.8 定位符</a></h3>
+<p>为了匹配特定位置的文本，需要使用定位符。</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">元字符</th><th style="text-align: center">说明</th></tr></thead><tbody>
+<tr><td style="text-align: center">^</td><td style="text-align: center">文本的开始</td></tr>
+<tr><td style="text-align: center">$</td><td style="text-align: center">文本的结尾</td></tr>
+<tr><td style="text-align: center">[[:&lt;:]]</td><td style="text-align: center">词的开始</td></tr>
+<tr><td style="text-align: center">[[:&gt;:]]</td><td style="text-align: center">词的结尾</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
+|  4 | fake_case_1     |      1 |     0 |       0 |             |        |
+|  5 | create_test12   |      1 |     2 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+5 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;^[a-d]{2}&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test  |
+| db_create_test1 |
+| db_create_test2 |
++-----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
+|  4 | fake_case_1     |      1 |     0 |       0 |             |        |
+|  5 | create_test12   |      1 |     2 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;[[:digit:]_]{2}$&quot;;
++---------------+
+| name          |
++---------------+
+| fake_case_1   |
+| create_test12 |
++---------------+
+2 rows in set (0.001 sec)
+</code></pre>
+<p><strong>^的双重用途</strong>  ^有两种用法。在集合中（用[和]定义，也就是^出现在方括号里面的时候，表示否定），用它来否定该集合，否则，用来指串的开始处。</p>
+<p><strong>使REGEXP起类似LIKE的作用</strong>  利用定位符，通过用^开始每个表达式，用$结束每个表达式，可以使REGEXP的作用与LIKE一样。</p>
+<p><strong>简单的正则表达式测试</strong>  可以在不使用数据库表的情况下用SELECT来测试正则表达式。REGEXP检查总是返回0（没有匹配）或1（匹配）。可以用带文字串的REGEXP来测试表达式，并试验它们。相应的语法如<code>SELECT 'hello' REGEXP '[0-9]';</code>这个例子显然将返回0（因为文本hello中没有数字）。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="10-创建计算字段"><a class="header" href="#10-创建计算字段">10 创建计算字段</a></h1>
+<h2 id="101-计算字段"><a class="header" href="#101-计算字段">10.1 计算字段</a></h2>
+<p><strong>字段（field）</strong> 基本上与列（column）的意思相同，经常互换使用，不过数据库列一般称为列，而术语字段通常用在计算字段的连接上。</p>
+<p><strong>客户机与服务器的格式</strong>  可在SQL语句内完成的许多转换和格式化工作都可以直接在客户机应用程序内完成。但一般来说，在数据库服务器上完成这些操作比在客户机中完成要快得多，因为DBMS是设计来快速有效地完成这种处理的。</p>
+<h2 id="102-拼接字段"><a class="header" href="#102-拼接字段">10.2 拼接字段</a></h2>
+<p>在MySQL的SELECT语句中，可使用Concat()函数来拼接两个列。</p>
+<p><strong>拼接（concatenate）</strong> 将值联结到一起构成单个值。</p>
+<p><strong>MySQL的不同之处</strong>  多数DBMS使用+或||来实现拼接，MySQL则使用Concat()函数来实现。当把SQL语句转换成MySQL语句时一定要把这个区别铭记在心。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM vendors;
++-----------+---------------+
+| name      | location      |
++-----------+---------------+
+| alphabet  | mountain view |
+| amazon    | seattle       |
+| amd       | california    |
+| apple     | california    |
+| intel     | california    |
+| meta      | california    |
+| microsoft | washington    |
+| nvidia    | california    |
+| tesla     | california    |
++-----------+---------------+
+9 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT Concat(name, ' (', location, ')') FROM vendors ORDER BY name;
++-----------------------------------+
+| Concat(name, ' (', location, ')') |
++-----------------------------------+
+| alphabet (mountain view)          |
+| amazon (seattle)                  |
+| amd (california)                  |
+| apple (california)                |
+| intel (california)                |
+| meta (california)                 |
+| microsoft (washington)            |
+| nvidia (california)               |
+| tesla (california)                |
++-----------------------------------+
+9 rows in set (0.000 sec)
+</code></pre>
+<p><strong>Concat()拼接串</strong>，即把多个串连接起来形成一个较长的串。Concat()需要一个或多个指定的串，各个串之间用逗号分隔。上面的SELECT语句连接以下4个元素成一个列：</p>
+<ul>
+<li>存储在name列中的名字</li>
+<li>包含一个空格和一个左圆括号的串</li>
+<li>存储在location列中的位置</li>
+<li>包含一个右圆括号的串</li>
+</ul>
+<p><strong>Trim函数</strong>  MySQL除了支持RTrim()（正如刚才所见，它去掉串右边的空格），还支持LTrim()（去掉串左边的空格）以及Trim()（去掉串左右两边的空格）。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM vendors;
++-----------+---------------+
+| name      | location      |
++-----------+---------------+
+| alphabet  | mountain view |
+| amazon    | seattle       |
+| amd       | california    |
+| apple     | california    |
+| intel     | california    |
+| meta      | california    |
+| microsoft | washington    |
+| nvidia    | california    |
+| tesla     | california    |
++-----------+---------------+
+9 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT Concat(name, LTrim(' ('), location, ')') FROM vendors ORDER BY name;
++------------------------------------------+
+| Concat(name, LTrim(' ('), location, ')') |
++------------------------------------------+
+| alphabet(mountain view)                  |
+| amazon(seattle)                          |
+| amd(california)                          |
+| apple(california)                        |
+| intel(california)                        |
+| meta(california)                         |
+| microsoft(washington)                    |
+| nvidia(california)                       |
+| tesla(california)                        |
++------------------------------------------+
+9 rows in set (0.001 sec)
+</code></pre>
+<p><strong>使用别名</strong></p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM vendors;
++-----------+---------------+
+| name      | location      |
++-----------+---------------+
+| alphabet  | mountain view |
+| amazon    | seattle       |
+| amd       | california    |
+| apple     | california    |
+| intel     | california    |
+| meta      | california    |
+| microsoft | washington    |
+| nvidia    | california    |
+| tesla     | california    |
++-----------+---------------+
+9 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT Concat(name,' (',location,')') AS vend_title FROM vendors;
++--------------------------+
+| vend_title               |
++--------------------------+
+| alphabet (mountain view) |
+| amazon (seattle)         |
+| amd (california)         |
+| apple (california)       |
+| intel (california)       |
+| meta (california)        |
+| microsoft (washington)   |
+| nvidia (california)      |
+| tesla (california)       |
++--------------------------+
+9 rows in set (0.001 sec)
+</code></pre>
+<p><strong>别名的其他用途</strong>  别名还有其他用途。常见的用途包括在实际的表列名包含不符合规定的字符（如空格）时重新命名它，在原来的名字含混或容易误解时扩充它，等等。</p>
+<p><strong>导出列</strong>  别名有时也称为导出列（derived column），不管称为什么，它们所代表的都是相同的东西。</p>
+<h2 id="103-执行算术计算"><a class="header" href="#103-执行算术计算">10.3 执行算术计算</a></h2>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM orders;
++---------+----------+------------+
+| prod_id | quantity | item_price |
++---------+----------+------------+
+| ANV01   |       10 |       5.99 |
+| ANV02   |        3 |       9.99 |
+| FB      |        1 |         10 |
+| YNT2    |        5 |         10 |
++---------+----------+------------+
+4 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT prod_id,quantity,item_price,quantity*item_price AS expand_price FROM orders;
++---------+----------+------------+--------------------+
+| prod_id | quantity | item_price | expand_price       |
++---------+----------+------------+--------------------+
+| ANV01   |       10 |       5.99 |  59.89999771118164 |
+| ANV02   |        3 |       9.99 | 29.969999313354492 |
+| FB      |        1 |         10 |                 10 |
+| YNT2    |        5 |         10 |                 50 |
++---------+----------+------------+--------------------+
+4 rows in set (0.001 sec)
+</code></pre>
+<p><strong>MySql的float存在精度问题</strong> 浮点数在计算机中的内部表示方式是使用有限的二进制位数进行近似存储的。由于浮点数的精度是有限的，当我们进行一些复杂的计算时，可能会导小数部分的精度损失。</p>
+<p><strong>解决方法</strong></p>
+<ul>
+<li>
+<p>使用DECIMAL类型：DECIMAL(8,2)指定了存储8位数字，小数部分保留2位</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; DESCRIBE orders;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| prod_id    | varchar(50)  | NO   | PRI | NULL    |       |
+| quantity   | int(11)      | NO   |     | NULL    |       |
+| item_price | decimal(8,2) | NO   |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+3 rows in set (0.002 sec)
+
+MariaDB [testdatabase]&gt; SELECT prod_id,quantity,item_price,quantity*item_price AS expand_price FROM orders;
++---------+----------+------------+--------------+
+| prod_id | quantity | item_price | expand_price |
++---------+----------+------------+--------------+
+| ANV01   |       10 |       5.99 |        59.90 |
+| ANV02   |        3 |       9.99 |        29.97 |
+| FB      |        1 |      10.00 |        10.00 |
+| YNT2    |        5 |      10.00 |        50.00 |
++---------+----------+------------+--------------+
+4 rows in set (0.001 sec)
+</code></pre>
+</li>
+<li>
+<p>使用ROUND函数：ROUND函数可以将计算结果四舍五入到指定的精度</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; DESCRIBE orders;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| prod_id    | varchar(50) | NO   | PRI | NULL    |       |
+| quantity   | int(11)     | NO   |     | NULL    |       |
+| item_price | float       | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT prod_id,quantity,item_price,ROUND(quantity*item_price,2) AS expand_price FROM orders;
++---------+----------+------------+--------------+
+| prod_id | quantity | item_price | expand_price |
++---------+----------+------------+--------------+
+| ANV01   |       10 |       5.99 |        59.90 |
+| ANV02   |        3 |       9.99 |        29.97 |
+| FB      |        1 |         10 |        10.00 |
+| YNT2    |        5 |         10 |        50.00 |
++---------+----------+------------+--------------+
+4 rows in set (0.000 sec)
+</code></pre>
+</li>
+<li>
+<p>使用CAST函数：CAST将一个值转换为指定的数据类型。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; DESCRIBE orders;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| prod_id    | varchar(50) | NO   | PRI | NULL    |       |
+| quantity   | int(11)     | NO   |     | NULL    |       |
+| item_price | float       | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT prod_id,quantity,item_price,CAST(quantity*item_price AS DECIMAL(8,2)) AS expand_price FROM orders;
++---------+----------+------------+--------------+
+| prod_id | quantity | item_price | expand_price |
++---------+----------+------------+--------------+
+| ANV01   |       10 |       5.99 |        59.90 |
+| ANV02   |        3 |       9.99 |        29.97 |
+| FB      |        1 |         10 |        10.00 |
+| YNT2    |        5 |         10 |        50.00 |
++---------+----------+------------+--------------+
+4 rows in set (0.001 sec)
+</code></pre>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="11-使用数据处理函数"><a class="header" href="#11-使用数据处理函数">11 使用数据处理函数</a></h1>
+<h2 id="112-使用函数"><a class="header" href="#112-使用函数">11.2 使用函数</a></h2>
+<p>大多数SQL实现支持以下类型的函数</p>
+<ul>
+<li>用于处理文本串(如删除或填充值，转换值为大小写)的文本函数。</li>
+<li>用于在数值数据上进行算术操作(如返回绝对值，进行代数运算)的数值函数。</li>
+<li>用于处理日期的时间值并从这些值中提取特定成分(例如，返回两个日期之差，检查日期有效性等)的日期和时间函数。</li>
+<li>返回DBMS正使用的特殊信息(如返回用户登录信息，检查版本细节)的系统函数。</li>
+</ul>
+<h2 id="1121-文本处理函数"><a class="header" href="#1121-文本处理函数">11.2.1 文本处理函数</a></h2>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT name FROM vendors LIMIT 3;
++----------+
+| name     |
++----------+
+| alphabet |
+| amazon   |
+| amd      |
++----------+
+3 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name,Upper(name) AS name_upcase FROM vendors LIMIT 3;
++----------+-------------+
+| name     | name_upcase |
++----------+-------------+
+| alphabet | ALPHABET    |
+| amazon   | AMAZON      |
+| amd      | AMD         |
++----------+-------------+
+3 rows in set (0.001 sec)
+</code></pre>
+<p>正如所见，Upper将文本转换为大写。</p>
+<h4 id="常用的文本处理函数"><a class="header" href="#常用的文本处理函数">常用的文本处理函数</a></h4>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">函数</th><th style="text-align: center">说明</th></tr></thead><tbody>
+<tr><td style="text-align: center">Left(str,length)</td><td style="text-align: center">返回str左边数起length长度的字符</td></tr>
+<tr><td style="text-align: center">Length(str)</td><td style="text-align: center">返回str的长度</td></tr>
+<tr><td style="text-align: center">Locate(sub,str,start)</td><td style="text-align: center">找出str中start位置开始检查sub子串的位置，默认从1开始</td></tr>
+<tr><td style="text-align: center">Lower(str)</td><td style="text-align: center">将串转换为小写</td></tr>
+<tr><td style="text-align: center">LTrim(str)</td><td style="text-align: center">去掉串左边的空格</td></tr>
+<tr><td style="text-align: center">Right(str,length)</td><td style="text-align: center">返回串右边的字符</td></tr>
+<tr><td style="text-align: center">RTrim(str)</td><td style="text-align: center">去掉串右边的空格</td></tr>
+<tr><td style="text-align: center">Soundex(str)</td><td style="text-align: center">返回串的SOUNDEX值</td></tr>
+<tr><td style="text-align: center">SubString(str,start,length)</td><td style="text-align: center">返回str从start开始length长度的子串</td></tr>
+<tr><td style="text-align: center">Upper(str)</td><td style="text-align: center">将串转换为大写</td></tr>
+</tbody></table>
+</div>
+<p>SOUNDEX是一个将任何文本串转换为描述其语音表示的字母数字模式的算法。SOUNDEX考虑了类似的发音字符和音节，使得能对串进行发音比较而不是字母比较。虽然SOUNDEX不是SQL概念，但MySQL（就像多数DBMS一样）都提供对SOUNDEX的支持。</p>
+<h3 id="1122-日期和时间处理函数"><a class="header" href="#1122-日期和时间处理函数">11.2.2 日期和时间处理函数</a></h3>
+<p><strong>常用日期和时间处理函数</strong></p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">函数</th><th style="text-align: center">说明</th></tr></thead><tbody>
+<tr><td style="text-align: center">AddDate(date,INTERVALvalueunit)</td><td style="text-align: center">增加一个日期（天、周等）</td></tr>
+<tr><td style="text-align: center">AddTime()</td><td style="text-align: center">增加一个时间（时、分等）</td></tr>
+<tr><td style="text-align: center">CurDate()</td><td style="text-align: center">返回当前日期</td></tr>
+<tr><td style="text-align: center">CurTime()</td><td style="text-align: center">返回当前时间</td></tr>
+<tr><td style="text-align: center">Date()</td><td style="text-align: center">返回日期时间的日期部分</td></tr>
+<tr><td style="text-align: center">DateDiff(end,start)</td><td style="text-align: center">计算两个日期之差</td></tr>
+<tr><td style="text-align: center">Date_Add(date,INTERVALvalueunit)</td><td style="text-align: center">高度灵活的日期运算函数</td></tr>
+<tr><td style="text-align: center">Date_Format(date,format)</td><td style="text-align: center">返回一个格式化的日期或时间串</td></tr>
+<tr><td style="text-align: center">Day()</td><td style="text-align: center">返回一个日期的天数部分</td></tr>
+<tr><td style="text-align: center">DayOfWeek()</td><td style="text-align: center">对于一个日期，返回对应的星期几</td></tr>
+<tr><td style="text-align: center">Hour()</td><td style="text-align: center">返回一个时间的小时部分</td></tr>
+<tr><td style="text-align: center">Minute()</td><td style="text-align: center">返回一个时间的分钟部分</td></tr>
+<tr><td style="text-align: center">Month()</td><td style="text-align: center">返回一个日期的月份部分</td></tr>
+<tr><td style="text-align: center">Now()</td><td style="text-align: center">返回当前日期和时间</td></tr>
+<tr><td style="text-align: center">Second()</td><td style="text-align: center">返回一个时间的秒部分</td></tr>
+<tr><td style="text-align: center">Time()</td><td style="text-align: center">返回一个日期时间的时间部分</td></tr>
+<tr><td style="text-align: center">Year()</td><td style="text-align: center">返回一个日期的年份部分</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT ADDDATE('2022-03-01', INTERVAL 1 DAY);
++---------------------------------------+
+| ADDDATE('2022-03-01', INTERVAL 1 DAY) |
++---------------------------------------+
+| 2022-03-02                            |
++---------------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT ADDDATE('2022-03-01', 1);
++--------------------------+
+| ADDDATE('2022-03-01', 1) |
++--------------------------+
+| 2022-03-02               |
++--------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT ADDDATE('2022-03-01', -1);
++---------------------------+
+| ADDDATE('2022-03-01', -1) |
++---------------------------+
+| 2022-02-28                |
++---------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT ADDDATE('2022-03-01', INTERVAL -1 WEEK);
++-----------------------------------------+
+| ADDDATE('2022-03-01', INTERVAL -1 WEEK) |
++-----------------------------------------+
+| 2022-02-22                              |
++-----------------------------------------+
+1 row in set (0.000 sec)
+MariaDB [testdatabase]&gt; SELECT ADDTIME('12:00:00', '03:30:00');
++---------------------------------+
+| ADDTIME('12:00:00', '03:30:00') |
++---------------------------------+
+| 15:30:00                        |
++---------------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT ADDTIME('12:00:00', '-03:30:00');
++----------------------------------+
+| ADDTIME('12:00:00', '-03:30:00') |
++----------------------------------+
+| 08:30:00                         |
++----------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT CONCAT(CURDATE(), ' ', CURTIME()) AS now;
++---------------------+
+| now                 |
++---------------------+
+| 2024-03-23 19:02:36 |
++---------------------+
+1 row in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT DATE(CURDATE());
++-----------------+
+| DATE(CURDATE()) |
++-----------------+
+| 2024-03-23      |
++-----------------+
+1 row in set (0.002 sec)
+
+MariaDB [testdatabase]&gt; SELECT DATEDIFF(CURDATE(), '2024-03-01');
++-----------------------------------+
+| DATEDIFF(CURDATE(), '2024-03-01') |
++-----------------------------------+
+|                                22 |
++-----------------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT DATE_FORMAT('2024-03-01','%Y%m%d');
++------------------------------------+
+| DATE_FORMAT('2024-03-01','%Y%m%d') |
++------------------------------------+
+| 20240301                           |
++------------------------------------+
+1 row in set (0.001 sec)
+</code></pre>
+<p><strong>需要注意MySQL使用的日期格式，</strong> 无论你什么时候指定一个日期，不管是插入或更新表值还是用WHERE子句进行过滤，日期必须为格式yyyy-mm-dd。</p>
+<p><strong>应该总是使用4位数字的年份</strong>  支持2位数字的年份，MySQL处理00-69为2000-2069，处理70-99为1970-1999。虽然它们可能是打算要的年份，但使用完整的4位数字年份更可靠，因为MySQL不必做出任何假定。</p>
+<h3 id="1123-数值处理函数"><a class="header" href="#1123-数值处理函数">11.2.3 数值处理函数</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">函数</th><th style="text-align: center">说明</th></tr></thead><tbody>
+<tr><td style="text-align: center">Abs()</td><td style="text-align: center">返回一个数的绝对值</td></tr>
+<tr><td style="text-align: center">Cos()</td><td style="text-align: center">返回一个角度的余弦</td></tr>
+<tr><td style="text-align: center">Exp()</td><td style="text-align: center">返回一个数的指数值</td></tr>
+<tr><td style="text-align: center">Mod()</td><td style="text-align: center">返回除操作的余数</td></tr>
+<tr><td style="text-align: center">Pi()</td><td style="text-align: center">返回圆周率</td></tr>
+<tr><td style="text-align: center">Rand()</td><td style="text-align: center">返回一个随机数</td></tr>
+<tr><td style="text-align: center">Sin()</td><td style="text-align: center">返回一个角度的正弦</td></tr>
+<tr><td style="text-align: center">Sqrt()</td><td style="text-align: center">返回一个数的平方根</td></tr>
+<tr><td style="text-align: center">Tan()</td><td style="text-align: center">返回一个角度的正切</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="12-汇总数据"><a class="header" href="#12-汇总数据">12 汇总数据</a></h1>
 <h2 id="121-聚集函数"><a class="header" href="#121-聚集函数">12.1 聚集函数</a></h2>
 <p><strong>聚集函数</strong> 运行在行组上，计算和返回单个值的函数</p>
 <div class="table-wrapper"><table><thead><tr><th style="text-align: center">函数</th><th style="text-align: center">说明</th></tr></thead><tbody>
@@ -1343,6 +2153,121 @@ Records: 2  Duplicates: 0  Warnings: 0
 <p>这个例子使用INSERT SELECT从custnew中将所有数据导入customers。SELECT语句从custnew检索出要插入的值，而不是列出它们。</p>
 <p><strong>INSERT SELECT中的列名</strong> 为简单起见，这个例子在INSERT和SELECT语句中使用了相同的列名。但是，不一定要求列名匹配。事实上，MySQL甚至不关心SELECT返回的列名。它使用的是列的位置，因此SELECT中的第一列（不管其列名）将用来填充表列中指定的第一个列，第二列将用来填充表列中指定的第二个列，如此等等。这对于从使用不同列名的表中导入数据是非常有用的。</p>
 <p>INSERT SELECT中SELECT语句可包含WHERE子句以过滤插入的数据。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="20-更新和删除数据"><a class="header" href="#20-更新和删除数据">20 更新和删除数据</a></h1>
+<h2 id="201-更新数据"><a class="header" href="#201-更新数据">20.1 更新数据</a></h2>
+<p>使用UPDATE更新数据表中的数据有两种方式：</p>
+<ul>
+<li>更新表中特定行</li>
+<li>更新表中所有行</li>
+</ul>
+<p><strong>不要省略</strong><code>WHERE</code><strong>子句</strong> 不带WHERE会更新表中所有的行。</p>
+<p>基本的UPDATE语句由3部分组成：</p>
+<ul>
+<li>要更新的表；</li>
+<li>列名和它们的新值；</li>
+<li>确定要更新行的过滤条件。</li>
+</ul>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; UPDATE customers SET cust_name='The Fudds', cust_email='elmer@fudd.com' WHERE cust_id=10005;
+</code></pre>
+<p>在更新多个列时，只需要使用单个SET命令，每个“列=值”对之间用逗号分隔。</p>
+<p><strong>在UPDATE语句中使用子查询</strong> UPDATE语句中可以使用子查询，使得能用SELECT语句检索出的数据更新列数据。</p>
+<p><strong>IGNORE关键字</strong> 如果用UPDATE语句更新多行，并且在更新这些行中的一行或多行时出现一个错误，则整个UPDATE操作被取消(没有任何修改被执行)。如果要让错误发生后操作继续执行，可使用IGNORE关键字，如 <code>UPDATE IGNORE customers ...</code>。</p>
+<h2 id="202-删除数据"><a class="header" href="#202-删除数据">20.2 删除数据</a></h2>
+<p>使用DELETE语句从表中删除数据有两种方式：</p>
+<ul>
+<li>从表中删除特定的行</li>
+<li>从表中删除所有行</li>
+</ul>
+<p><strong>不要省略</strong><code>WHERE</code><strong>子句</strong> 不带WHERE会删除表中所有的行。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; DELETE FROM customers WHERE cust_id=10006;
+</code></pre>
+<p>DELETE删除的是数据行(不能用来删除表)，因此不需要列名或者通配符。</p>
+<p><strong>更快的删除</strong> 如果想从表中删除所有行，不要使用DELETE。可以使用 <code>TRUNCATE TABLE</code> 语句，他完成相同的工作，但速度更快(TRUNCATE TABLE实际是删除原来的表并重新创建一个表，而不是逐行删除表中的数据)。</p>
+<h2 id="203-更新和删除的指导原则"><a class="header" href="#203-更新和删除的指导原则">20.3 更新和删除的指导原则</a></h2>
+<p>下面是一些DELETE和UPDATE时建议养成的好习惯：</p>
+<ul>
+<li>除非确实打算更新和删除每一行，否则绝对不要使用不带WHERE子句的UPDATE或DELETE语句。</li>
+<li>保证每个表都有主键（如果忘记这个内容，请参阅第15章），尽可能像WHERE子句那样使用它（可以指定各主键、多个值或值的范围）。</li>
+<li>在对UPDATE或DELETE语句使用WHERE子句前，应该先用SELECT进行测试，保证它过滤的是正确的记录，以防编写的WHERE子句不正确。</li>
+<li>本人尚未理解：使用强制实施引用完整性的数据库（关于这个内容，请参阅第15章），这样MySQL将不允许删除具有与其他表相关联的数据的行。</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="21-创建和操纵表"><a class="header" href="#21-创建和操纵表">21 创建和操纵表</a></h1>
+<h2 id="211-create-table创建表"><a class="header" href="#211-create-table创建表">21.1 CREATE TABLE创建表</a></h2>
+<h3 id="2111-表创建基础"><a class="header" href="#2111-表创建基础">21.1.1 表创建基础</a></h3>
+<p>CREATE TABLE需要下列信息：</p>
+<ul>
+<li>新表的名字，在关键字CREATE TABLE之后给出；</li>
+<li>表列的名字和定义，用逗号分隔。</li>
+</ul>
+<p>CREATE TABLE语句也可能会包括其他关键字或选项，但至少要包括表的名字和列的细节。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; CREATE TABLE customers(
+  cust_id      int       NOT NULL AUTO_INCREMENT,
+  cust_name    char(50)  NOT NULL ,
+  cust_address char(50)  NULL ,
+  cust_city    char(50)  NULL ,
+  cust_state   char(5)   NULL ,
+  cust_zip     char(10)  NULL ,
+  cust_country char(50)  NULL ,
+  cust_contact char(50)  NULL ,
+  cust_email   char(255) NULL ,
+  PRIMARY KEY (cust_id)
+) ENGINE=InnoDB;
+</code></pre>
+<p>每列的定义以列名(在表中必须唯一)开始，后跟列的数据类型(<a href="./appendixD.html">附录D</a>列出了MySQL支持的数据类型)。表的主键可以在创建表时用PRIMARY KEY关键字指定。</p>
+<p><strong>处理现有的表</strong> 在创建新表时，指定的表名必须不存在，否则将出错。如果要防止意外覆盖已有的表，SQL要求首先手工删除该表（请参阅后面的小节），然后再重建它，而不是简单地用创建表语句覆盖它。如果你仅想在一个表不存在时创建它，应该在表名后给出 <code>IF NOT EXISTS</code>。这样做不检查已有表的模式是否与你打算创建的表模式相匹配。它只是查看表名是否存在，并且仅在表名不存在时创建它。</p>
+<h3 id="2112-使用null值"><a class="header" href="#2112-使用null值">21.1.2 使用NULL值</a></h3>
+<p>创建时指定NOT NULL的列不接受没有值的行</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; CREATE TABLE orders(
+  order_num  int      NOT NULL AUTO_INCREMENT,
+  order_date datetime NOT NULL ,
+  cust_id    int      NOT NULL ,
+  PRIMARY KEY (order_num)
+) ENGINE=InnoDB;
+</code></pre>
+<p><strong>理解NULL</strong> 不要把NULL值与空串相混淆。NULL值是没有值，它不是空串。如果指定''（两个单引号，其间没有字符），这在NOT NULL列中是允许的。空串是一个有效的值，它不是无值。NULL值用关键字NULL而不是空串指定。</p>
+<h3 id="2113-关于主键"><a class="header" href="#2113-关于主键">21.1.3 关于主键</a></h3>
+<p><strong>主键值必须唯一</strong>。即，表中的每个行必须具有唯一的主键值。如果主键使用单个列，则它的值必须唯一。如果使用多个列，则这些列的组合值必须唯一。</p>
+<p>单个列作为主键的定义如 <code>PRIMARY KEY (vend_id)</code>。</p>
+<p>创建由多个列组成的主键，应该以逗号分隔的列表给出各列名，如：</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; CREATE TABLE orderitems(
+  order_num  int          NOT NULL ,
+  order_item int          NOT NULL ,
+  prod_id    char(10)     NOT NULL ,
+  quantity   int          NOT NULL ,
+  item_price decimal(8,2) NOT NULL ,
+  PRIMARY KEY (order_num, order_item)
+) ENGINE=InnoDB;
+</code></pre>
+<p>主键也可以在表创建后定义，主键只能使用不允许为NULL值的列。</p>
+<h3 id="2114-使用auto_increment"><a class="header" href="#2114-使用auto_increment">21.1.4 使用AUTO_INCREMENT</a></h3>
+<p>AUTO_INCREMENT告诉MySQL，本列每当增加一行时自动增量。每次执行一个INSERT操作时，MySQL自动对该列增量（从而才有这个关键字AUTO_INCREMENT），给该列赋予下一个可用的值。</p>
+<p><strong>确定AUTO_INCREMENT值</strong> <code>SELECT last_insert_id()</code> 返回最后一个AUTO_INCREMENT值。</p>
+<h3 id="2115-指定默认值"><a class="header" href="#2115-指定默认值">21.1.5 指定默认值</a></h3>
+<p>用DEFAULT关键字指定默认值：</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; CREATE TABLE orderitems(
+  order_num  int          NOT NULL ,
+  order_item int          NOT NULL ,
+  prod_id    char(10)     NOT NULL ,
+  quantity   int          NOT NULL DEFAULT 1,
+  item_price decimal(8,2) NOT NULL ,
+  PRIMARY KEY (order_num, order_item)
+) ENGINE=InnoDB;
+</code></pre>
+<p><strong>不允许函数</strong> 与大多数DBMS不一样，MySQL不允许使用函数作为默认值，它只支持常量。</p>
+<p><strong>使用默认值而不是NULL值</strong> 许多数据库开发人员使用默认值而不是NULL列，特别是对用于计算或数据分组的列更是如此。 </p>
+<h3 id="2116-引擎类型"><a class="header" href="#2116-引擎类型">21.1.6 引擎类型</a></h3>
+<p>与其他DBMS一样，MySQL有一个具体管理和处理数据的内部引擎。</p>
+<p>MySQL具有多种引擎。它打包多个引擎，这些引擎都隐藏在MySQL服务器内，全都能执行CREATE TABLE和SELECT等命令。</p>
+<p>为什么要发行多种引擎呢？因为它们具有各自不同的功能和特性，为不同的任务选择正确的引擎能获得良好的功能和灵活性。</p>
+<p>如果省略ENGINE=语句，则使用默认引擎（很可能是MyISAM），多数SQL语句都会默认使用它。但并不是所有语句都默认使用它，这就是为什么ENGINE=语句很重要。引擎类型可以混用。</p>
+<p>几个重要的引擎：</p>
+<ul>
+<li>InnoDB是一个可靠的事务处理引擎(<a href="./chapter_26.html">详见26章</a>)，不支持全文本搜索；</li>
+<li>MEMORY在功能上等同于MyISAM，但由于数据存储在内存(不是磁盘)中，速度很快(适用于临时表)。</li>
+<li>MyISAM是一个性能极高的引擎，支持全文本搜索，但不支持事务处理。</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="26-管理事务处理"><a class="header" href="#26-管理事务处理">26 管理事务处理</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mysql数据类型"><a class="header" href="#mysql数据类型">MySQL数据类型</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="创建示例数据库结构"><a class="header" href="#创建示例数据库结构">创建示例数据库结构</a></h1>
 <pre><code class="language-SQL">########################################
 # MySQL Crash Course

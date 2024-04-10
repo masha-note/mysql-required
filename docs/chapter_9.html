@@ -1,0 +1,588 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>用正则表达式进行搜索 - MySQL必知必会</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 了解SQL</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> MySQL简介</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 使用MySQL</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 检索数据</a></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> 排序检索数据</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> 过滤数据</a></li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> 数据过滤</a></li><li class="chapter-item expanded "><a href="chapter_8.html"><strong aria-hidden="true">8.</strong> 用通配符进行过滤</a></li><li class="chapter-item expanded "><a href="chapter_9.html" class="active"><strong aria-hidden="true">9.</strong> 用正则表达式进行搜索</a></li><li class="chapter-item expanded "><a href="chapter_10.html"><strong aria-hidden="true">10.</strong> 创建计算字段</a></li><li class="chapter-item expanded "><a href="chapter_11.html"><strong aria-hidden="true">11.</strong> 使用数据处理函数</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">12.</strong> 汇总数据</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">13.</strong> 数据分组</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">14.</strong> 使用子查询</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">15.</strong> 联结表</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">16.</strong> 创建高级联结</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">17.</strong> 组合查询</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">18.</strong> 全文本搜索</a></li><li class="chapter-item expanded "><a href="chapter_19.html"><strong aria-hidden="true">19.</strong> 插入数据</a></li><li class="chapter-item expanded "><a href="chapter_20.html"><strong aria-hidden="true">20.</strong> 更新和删除数据</a></li><li class="chapter-item expanded "><a href="chapter_21.html"><strong aria-hidden="true">21.</strong> 创建和操纵表</a></li><li class="chapter-item expanded "><a href="chapter_26.html"><strong aria-hidden="true">22.</strong> 管理事务处理</a></li><li class="chapter-item expanded "><a href="appendixD.html"><strong aria-hidden="true">23.</strong> 附录D MySQL数据类型</a></li><li class="chapter-item expanded "><a href="appendix_create.html"><strong aria-hidden="true">24.</strong> 附录.创建示例数据库结构</a></li><li class="chapter-item expanded "><a href="appendix_insert.html"><strong aria-hidden="true">25.</strong> 附录.添加示例数据</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">MySQL必知必会</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="9-用正则表达式进行搜索"><a class="header" href="#9-用正则表达式进行搜索">9 用正则表达式进行搜索</a></h1>
+<h2 id="92-使用mysql正则表达式"><a class="header" href="#92-使用mysql正则表达式">9.2 使用MySQL正则表达式</a></h2>
+<p>MySQL仅支持多数正则表达式实现的一个很小的子集。</p>
+<h3 id="921-基本字符匹配"><a class="header" href="#921-基本字符匹配">9.2.1 基本字符匹配</a></h3>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP 'test';
++-----------------+
+| name            |
++-----------------+
+| db_create_test  |
+| db_create_test1 |
+| db_create_test2 |
++-----------------+
+3 rows in set (0.027 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP 'test.';
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
++-----------------+
+2 rows in set (0.000 sec)
+</code></pre>
+<p>以上的功能可以由LIKE实现，正则表达式没有带来太多好处（可能还会降低性能）。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP 'test';
++-----------------+
+| name            |
++-----------------+
+| db_create_test  |
+| db_create_test1 |
+| db_create_test2 |
++-----------------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name LIKE 'test';
+Empty set (0.000 sec)
+</code></pre>
+<p><strong>LIKE和REGEXP</strong> LIKE匹配整个列。如果被匹配的文本在列值中出现，LIKE将不会找到它，相应的行也不被返回（除非使用通配符）。而REGEXP在列值内进行匹配，如果被匹配的文本在列值中出现，REGEXP将会找到它，相应的行将被返回。这是一个非常重要的差别。</p>
+<p>REGEXP使用^和$定位符后也可以匹配整行。</p>
+<p><strong>匹配不区分大小写</strong> MySQL中的正则表达式匹配（自版本3.23.4后）不区分大小写（即，大写和小写都匹配）。为区分大小写，可使用BINARY关键字，如WHERE prod_name REGEXP BINARY 'JetPack .000'。</p>
+<h3 id="922-进行or匹配"><a class="header" href="#922-进行or匹配">9.2.2 进行OR匹配</a></h3>
+<p>为搜索两个串之一（或者为这个串，或者为另一个串），使用 <code>|</code> 。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP 'test1|test2';
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
++-----------------+
+2 rows in set (0.000 sec)
+</code></pre>
+<p>使用 <code>|</code> 从功能上类似于在SELECT语句中使用OR语句，多个OR条件可并入单个正则表达式。</p>
+<p><strong>两个以上的OR条件</strong> 可以给出两个以上的OR条件。例如，'1000 | 2000 | 3000'将匹配1000或2000或3000。</p>
+<h3 id="923-匹配几个字符之一"><a class="header" href="#923-匹配几个字符之一">9.2.3 匹配几个字符之一</a></h3>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP 'test[12]';
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
++-----------------+
+2 rows in set (0.000 sec)
+</code></pre>
+<p>正如所见，[]是另一种形式的OR语句。事实上，正则表达式test[12]为test[1|2]的缩写，也可以使用后者。但是，需要用[]来定义OR语句查找什么。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
+|  4 | fake_case_1     |      1 |     0 |       0 |             |        |
++----+-----------------+--------+-------+---------+-------------+--------+
+4 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP 'test2|1';
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
+| fake_case_1     |
++-----------------+
+3 rows in set (0.001 sec)
+</code></pre>
+<p>这并不是期望的输出。两个要求的行被检索出来，但还检索出了另外1行。之所以这样是由于MySQL假定你的意思是'1'或'test2'。</p>
+<p>字符集合也可以被否定，即，它们将匹配除指定字符外的任何东西。为否定一个字符集，在集合的开始处放置一个^即可。因此，尽管[123]匹配字符1、2或3，但<sup class="footnote-reference"><a href="#123">1</a></sup>却匹配除这些字符外的任何东西。</p>
+<h3 id="924-匹配范围"><a class="header" href="#924-匹配范围">9.2.4 匹配范围</a></h3>
+<p>范围不限于完整的集合，[1-3]和[6-9]也是合法的范围。此外，范围不一定只是数值的，[a-z]匹配任意字母字符。</p>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
+|  4 | fake_case_1     |      1 |     0 |       0 |             |        |
++----+-----------------+--------+-------+---------+-------------+--------+
+4 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP 'test[1-2]';
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
++-----------------+
+2 rows in set (0.000 sec)
+</code></pre>
+<h3 id="925-匹配特殊字符"><a class="header" href="#925-匹配特殊字符">9.2.5 匹配特殊字符</a></h3>
+<p>点(.)匹配任意字符，因此每个行都被检索出来。为了匹配特殊字符，必须用\\为前导。\\-表示查找-，\\.表示查找.。这种处理就是所谓的转义（escaping），正则表达式内具有特殊意义的所有字符都必须以这种方式转义。这包括.、|、[]以及迄今为止使用过的其他特殊字符。</p>
+<p>空白元字符</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">元符</th><th style="text-align: center">说明</th></tr></thead><tbody>
+<tr><td style="text-align: center">\\f</td><td style="text-align: center">换页</td></tr>
+<tr><td style="text-align: center">\\n</td><td style="text-align: center">换行</td></tr>
+<tr><td style="text-align: center">\\r</td><td style="text-align: center">回车</td></tr>
+<tr><td style="text-align: center">\\t</td><td style="text-align: center">制表</td></tr>
+<tr><td style="text-align: center">\\v</td><td style="text-align: center">纵向制表</td></tr>
+</tbody></table>
+</div>
+<p><strong>匹配\</strong>  为了匹配反斜杠（\）字符本身，需要使用\\。</p>
+<p><strong>\或\\?</strong>  多数正则表达式实现使用单个反斜杠转义特殊字符，以便能使用这些字符本身。但MySQL要求两个反斜杠（MySQL自己解释一个，正则表达式库解释另一个）。</p>
+<h3 id="926-匹配字符类"><a class="header" href="#926-匹配字符类">9.2.6 匹配字符类</a></h3>
+<p>存在找出你自己经常使用的数字、所有字母字符或所有数字字母字符等的匹配。为更方便工作，可以使用预定义的字符集称为字符类（character class）。</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">类</th><th style="text-align: center">说明</th></tr></thead><tbody>
+<tr><td style="text-align: center">[:alnum:]</td><td style="text-align: center">任意字母和数字（同[a-zA-Z0-9]）</td></tr>
+<tr><td style="text-align: center">[:alpha:]</td><td style="text-align: center">任意字符（同[a-zA-Z]）</td></tr>
+<tr><td style="text-align: center">[:blank:]</td><td style="text-align: center">空格和制表（同[\t]）</td></tr>
+<tr><td style="text-align: center">[:cntrl:]</td><td style="text-align: center">ASCII控制字符（ASCII0到31和127）</td></tr>
+<tr><td style="text-align: center">[:digit:]</td><td style="text-align: center">任意数字（同[0-9]）</td></tr>
+<tr><td style="text-align: center">[:graph:]</td><td style="text-align: center">与[:print:]相同，但不包括空格</td></tr>
+<tr><td style="text-align: center">[:lower:]</td><td style="text-align: center">任意小写字母（同[a-z]）</td></tr>
+<tr><td style="text-align: center">[:print:]</td><td style="text-align: center">任意可打印字符</td></tr>
+<tr><td style="text-align: center">[:punct:]</td><td style="text-align: center">既不在[:alnum:]又不在[:cntrl:]中的任意字符</td></tr>
+<tr><td style="text-align: center">[:space:]</td><td style="text-align: center">包括空格在内的任意空白字符（同[\\f\\n\\r\\t\\v]）</td></tr>
+<tr><td style="text-align: center">[:upper:]</td><td style="text-align: center">任意大写字母（同[A-Z]）</td></tr>
+<tr><td style="text-align: center">[:xdigit:]</td><td style="text-align: center">任意十六进制数字（同[a-fA-F0-9]）</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
+|  4 | fake_case_1     |      1 |     0 |       0 |             |        |
+|  5 | create_test12   |      1 |     2 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[[:digit:]]*&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test  |
+| db_create_test1 |
+| db_create_test2 |
+| create_test12   |
++-----------------+
+4 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[[:digit:]]+&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
+| create_test12   |
++-----------------+
+3 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[[:digit:]]?&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test  |
+| db_create_test1 |
+| db_create_test2 |
+| create_test12   |
++-----------------+
+4 rows in set (0.001 sec)
+</code></pre>
+<h3 id="927-匹配多个实例"><a class="header" href="#927-匹配多个实例">9.2.7 匹配多个实例</a></h3>
+<p>重复元字符</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">元字符</th><th style="text-align: center">说明</th></tr></thead><tbody>
+<tr><td style="text-align: center">*</td><td style="text-align: center">0个或多个匹配</td></tr>
+<tr><td style="text-align: center">+</td><td style="text-align: center">1个或多个匹配(等于{1，})</td></tr>
+<tr><td style="text-align: center">?</td><td style="text-align: center">0个或1个匹配(等于{0，1})</td></tr>
+<tr><td style="text-align: center">{n}</td><td style="text-align: center">指定数目的匹配</td></tr>
+<tr><td style="text-align: center">{n,}</td><td style="text-align: center">不少于指定数目的匹配</td></tr>
+<tr><td style="text-align: center">{n,m}</td><td style="text-align: center">匹配数目的范围(m不超过255)</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
+|  4 | fake_case_1     |      1 |     0 |       0 |             |        |
+|  5 | create_test12   |      1 |     2 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[a-z0-9]*&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test  |
+| db_create_test1 |
+| db_create_test2 |
+| create_test12   |
++-----------------+
+4 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[a-z0-9]+&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
+| create_test12   |
++-----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[a-z0-9]?&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test  |
+| db_create_test1 |
+| db_create_test2 |
+| create_test12   |
++-----------------+
+4 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[a-z0-9]{1}&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
+| create_test12   |
++-----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[a-z0-9]{1,}&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test1 |
+| db_create_test2 |
+| create_test12   |
++-----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;test[a-z0-9]{2,3}&quot;;
++---------------+
+| name          |
++---------------+
+| create_test12 |
++---------------+
+1 row in set (0.001 sec)
+</code></pre>
+<h3 id="928-定位符"><a class="header" href="#928-定位符">9.2.8 定位符</a></h3>
+<p>为了匹配特定位置的文本，需要使用定位符。</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">元字符</th><th style="text-align: center">说明</th></tr></thead><tbody>
+<tr><td style="text-align: center">^</td><td style="text-align: center">文本的开始</td></tr>
+<tr><td style="text-align: center">$</td><td style="text-align: center">文本的结尾</td></tr>
+<tr><td style="text-align: center">[[:&lt;:]]</td><td style="text-align: center">词的开始</td></tr>
+<tr><td style="text-align: center">[[:&gt;:]]</td><td style="text-align: center">词的结尾</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
+|  4 | fake_case_1     |      1 |     0 |       0 |             |        |
+|  5 | create_test12   |      1 |     2 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+5 rows in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;^[a-d]{2}&quot;;
++-----------------+
+| name            |
++-----------------+
+| db_create_test  |
+| db_create_test1 |
+| db_create_test2 |
++-----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT * FROM tasks;
++----+-----------------+--------+-------+---------+-------------+--------+
+| Id | Name            | Result | Fault | Correct | Description | Parent |
++----+-----------------+--------+-------+---------+-------------+--------+
+|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
+|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
+|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
+|  4 | fake_case_1     |      1 |     0 |       0 |             |        |
+|  5 | create_test12   |      1 |     2 |       0 | NULL        | NULL   |
++----+-----------------+--------+-------+---------+-------------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name FROM tasks WHERE name REGEXP &quot;[[:digit:]_]{2}$&quot;;
++---------------+
+| name          |
++---------------+
+| fake_case_1   |
+| create_test12 |
++---------------+
+2 rows in set (0.001 sec)
+</code></pre>
+<p><strong>^的双重用途</strong>  ^有两种用法。在集合中（用[和]定义，也就是^出现在方括号里面的时候，表示否定），用它来否定该集合，否则，用来指串的开始处。</p>
+<p><strong>使REGEXP起类似LIKE的作用</strong>  利用定位符，通过用^开始每个表达式，用$结束每个表达式，可以使REGEXP的作用与LIKE一样。</p>
+<p><strong>简单的正则表达式测试</strong>  可以在不使用数据库表的情况下用SELECT来测试正则表达式。REGEXP检查总是返回0（没有匹配）或1（匹配）。可以用带文字串的REGEXP来测试表达式，并试验它们。相应的语法如<code>SELECT 'hello' REGEXP '[0-9]';</code>这个例子显然将返回0（因为文本hello中没有数字）。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter_8.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="chapter_10.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter_8.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="chapter_10.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

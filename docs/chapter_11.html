@@ -1,0 +1,388 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>使用数据处理函数 - MySQL必知必会</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 了解SQL</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> MySQL简介</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 使用MySQL</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 检索数据</a></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> 排序检索数据</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> 过滤数据</a></li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> 数据过滤</a></li><li class="chapter-item expanded "><a href="chapter_8.html"><strong aria-hidden="true">8.</strong> 用通配符进行过滤</a></li><li class="chapter-item expanded "><a href="chapter_9.html"><strong aria-hidden="true">9.</strong> 用正则表达式进行搜索</a></li><li class="chapter-item expanded "><a href="chapter_10.html"><strong aria-hidden="true">10.</strong> 创建计算字段</a></li><li class="chapter-item expanded "><a href="chapter_11.html" class="active"><strong aria-hidden="true">11.</strong> 使用数据处理函数</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">12.</strong> 汇总数据</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">13.</strong> 数据分组</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">14.</strong> 使用子查询</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">15.</strong> 联结表</a></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">16.</strong> 创建高级联结</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">17.</strong> 组合查询</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">18.</strong> 全文本搜索</a></li><li class="chapter-item expanded "><a href="chapter_19.html"><strong aria-hidden="true">19.</strong> 插入数据</a></li><li class="chapter-item expanded "><a href="chapter_20.html"><strong aria-hidden="true">20.</strong> 更新和删除数据</a></li><li class="chapter-item expanded "><a href="chapter_21.html"><strong aria-hidden="true">21.</strong> 创建和操纵表</a></li><li class="chapter-item expanded "><a href="chapter_26.html"><strong aria-hidden="true">22.</strong> 管理事务处理</a></li><li class="chapter-item expanded "><a href="appendixD.html"><strong aria-hidden="true">23.</strong> 附录D MySQL数据类型</a></li><li class="chapter-item expanded "><a href="appendix_create.html"><strong aria-hidden="true">24.</strong> 附录.创建示例数据库结构</a></li><li class="chapter-item expanded "><a href="appendix_insert.html"><strong aria-hidden="true">25.</strong> 附录.添加示例数据</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">MySQL必知必会</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="11-使用数据处理函数"><a class="header" href="#11-使用数据处理函数">11 使用数据处理函数</a></h1>
+<h2 id="112-使用函数"><a class="header" href="#112-使用函数">11.2 使用函数</a></h2>
+<p>大多数SQL实现支持以下类型的函数</p>
+<ul>
+<li>用于处理文本串(如删除或填充值，转换值为大小写)的文本函数。</li>
+<li>用于在数值数据上进行算术操作(如返回绝对值，进行代数运算)的数值函数。</li>
+<li>用于处理日期的时间值并从这些值中提取特定成分(例如，返回两个日期之差，检查日期有效性等)的日期和时间函数。</li>
+<li>返回DBMS正使用的特殊信息(如返回用户登录信息，检查版本细节)的系统函数。</li>
+</ul>
+<h2 id="1121-文本处理函数"><a class="header" href="#1121-文本处理函数">11.2.1 文本处理函数</a></h2>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT name FROM vendors LIMIT 3;
++----------+
+| name     |
++----------+
+| alphabet |
+| amazon   |
+| amd      |
++----------+
+3 rows in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT name,Upper(name) AS name_upcase FROM vendors LIMIT 3;
++----------+-------------+
+| name     | name_upcase |
++----------+-------------+
+| alphabet | ALPHABET    |
+| amazon   | AMAZON      |
+| amd      | AMD         |
++----------+-------------+
+3 rows in set (0.001 sec)
+</code></pre>
+<p>正如所见，Upper将文本转换为大写。</p>
+<h4 id="常用的文本处理函数"><a class="header" href="#常用的文本处理函数">常用的文本处理函数</a></h4>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">函数</th><th style="text-align: center">说明</th></tr></thead><tbody>
+<tr><td style="text-align: center">Left(str,length)</td><td style="text-align: center">返回str左边数起length长度的字符</td></tr>
+<tr><td style="text-align: center">Length(str)</td><td style="text-align: center">返回str的长度</td></tr>
+<tr><td style="text-align: center">Locate(sub,str,start)</td><td style="text-align: center">找出str中start位置开始检查sub子串的位置，默认从1开始</td></tr>
+<tr><td style="text-align: center">Lower(str)</td><td style="text-align: center">将串转换为小写</td></tr>
+<tr><td style="text-align: center">LTrim(str)</td><td style="text-align: center">去掉串左边的空格</td></tr>
+<tr><td style="text-align: center">Right(str,length)</td><td style="text-align: center">返回串右边的字符</td></tr>
+<tr><td style="text-align: center">RTrim(str)</td><td style="text-align: center">去掉串右边的空格</td></tr>
+<tr><td style="text-align: center">Soundex(str)</td><td style="text-align: center">返回串的SOUNDEX值</td></tr>
+<tr><td style="text-align: center">SubString(str,start,length)</td><td style="text-align: center">返回str从start开始length长度的子串</td></tr>
+<tr><td style="text-align: center">Upper(str)</td><td style="text-align: center">将串转换为大写</td></tr>
+</tbody></table>
+</div>
+<p>SOUNDEX是一个将任何文本串转换为描述其语音表示的字母数字模式的算法。SOUNDEX考虑了类似的发音字符和音节，使得能对串进行发音比较而不是字母比较。虽然SOUNDEX不是SQL概念，但MySQL（就像多数DBMS一样）都提供对SOUNDEX的支持。</p>
+<h3 id="1122-日期和时间处理函数"><a class="header" href="#1122-日期和时间处理函数">11.2.2 日期和时间处理函数</a></h3>
+<p><strong>常用日期和时间处理函数</strong></p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">函数</th><th style="text-align: center">说明</th></tr></thead><tbody>
+<tr><td style="text-align: center">AddDate(date,INTERVALvalueunit)</td><td style="text-align: center">增加一个日期（天、周等）</td></tr>
+<tr><td style="text-align: center">AddTime()</td><td style="text-align: center">增加一个时间（时、分等）</td></tr>
+<tr><td style="text-align: center">CurDate()</td><td style="text-align: center">返回当前日期</td></tr>
+<tr><td style="text-align: center">CurTime()</td><td style="text-align: center">返回当前时间</td></tr>
+<tr><td style="text-align: center">Date()</td><td style="text-align: center">返回日期时间的日期部分</td></tr>
+<tr><td style="text-align: center">DateDiff(end,start)</td><td style="text-align: center">计算两个日期之差</td></tr>
+<tr><td style="text-align: center">Date_Add(date,INTERVALvalueunit)</td><td style="text-align: center">高度灵活的日期运算函数</td></tr>
+<tr><td style="text-align: center">Date_Format(date,format)</td><td style="text-align: center">返回一个格式化的日期或时间串</td></tr>
+<tr><td style="text-align: center">Day()</td><td style="text-align: center">返回一个日期的天数部分</td></tr>
+<tr><td style="text-align: center">DayOfWeek()</td><td style="text-align: center">对于一个日期，返回对应的星期几</td></tr>
+<tr><td style="text-align: center">Hour()</td><td style="text-align: center">返回一个时间的小时部分</td></tr>
+<tr><td style="text-align: center">Minute()</td><td style="text-align: center">返回一个时间的分钟部分</td></tr>
+<tr><td style="text-align: center">Month()</td><td style="text-align: center">返回一个日期的月份部分</td></tr>
+<tr><td style="text-align: center">Now()</td><td style="text-align: center">返回当前日期和时间</td></tr>
+<tr><td style="text-align: center">Second()</td><td style="text-align: center">返回一个时间的秒部分</td></tr>
+<tr><td style="text-align: center">Time()</td><td style="text-align: center">返回一个日期时间的时间部分</td></tr>
+<tr><td style="text-align: center">Year()</td><td style="text-align: center">返回一个日期的年份部分</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-SQL">MariaDB [testdatabase]&gt; SELECT ADDDATE('2022-03-01', INTERVAL 1 DAY);
++---------------------------------------+
+| ADDDATE('2022-03-01', INTERVAL 1 DAY) |
++---------------------------------------+
+| 2022-03-02                            |
++---------------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT ADDDATE('2022-03-01', 1);
++--------------------------+
+| ADDDATE('2022-03-01', 1) |
++--------------------------+
+| 2022-03-02               |
++--------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT ADDDATE('2022-03-01', -1);
++---------------------------+
+| ADDDATE('2022-03-01', -1) |
++---------------------------+
+| 2022-02-28                |
++---------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT ADDDATE('2022-03-01', INTERVAL -1 WEEK);
++-----------------------------------------+
+| ADDDATE('2022-03-01', INTERVAL -1 WEEK) |
++-----------------------------------------+
+| 2022-02-22                              |
++-----------------------------------------+
+1 row in set (0.000 sec)
+MariaDB [testdatabase]&gt; SELECT ADDTIME('12:00:00', '03:30:00');
++---------------------------------+
+| ADDTIME('12:00:00', '03:30:00') |
++---------------------------------+
+| 15:30:00                        |
++---------------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT ADDTIME('12:00:00', '-03:30:00');
++----------------------------------+
+| ADDTIME('12:00:00', '-03:30:00') |
++----------------------------------+
+| 08:30:00                         |
++----------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT CONCAT(CURDATE(), ' ', CURTIME()) AS now;
++---------------------+
+| now                 |
++---------------------+
+| 2024-03-23 19:02:36 |
++---------------------+
+1 row in set (0.000 sec)
+
+MariaDB [testdatabase]&gt; SELECT DATE(CURDATE());
++-----------------+
+| DATE(CURDATE()) |
++-----------------+
+| 2024-03-23      |
++-----------------+
+1 row in set (0.002 sec)
+
+MariaDB [testdatabase]&gt; SELECT DATEDIFF(CURDATE(), '2024-03-01');
++-----------------------------------+
+| DATEDIFF(CURDATE(), '2024-03-01') |
++-----------------------------------+
+|                                22 |
++-----------------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [testdatabase]&gt; SELECT DATE_FORMAT('2024-03-01','%Y%m%d');
++------------------------------------+
+| DATE_FORMAT('2024-03-01','%Y%m%d') |
++------------------------------------+
+| 20240301                           |
++------------------------------------+
+1 row in set (0.001 sec)
+</code></pre>
+<p><strong>需要注意MySQL使用的日期格式，</strong> 无论你什么时候指定一个日期，不管是插入或更新表值还是用WHERE子句进行过滤，日期必须为格式yyyy-mm-dd。</p>
+<p><strong>应该总是使用4位数字的年份</strong>  支持2位数字的年份，MySQL处理00-69为2000-2069，处理70-99为1970-1999。虽然它们可能是打算要的年份，但使用完整的4位数字年份更可靠，因为MySQL不必做出任何假定。</p>
+<h3 id="1123-数值处理函数"><a class="header" href="#1123-数值处理函数">11.2.3 数值处理函数</a></h3>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">函数</th><th style="text-align: center">说明</th></tr></thead><tbody>
+<tr><td style="text-align: center">Abs()</td><td style="text-align: center">返回一个数的绝对值</td></tr>
+<tr><td style="text-align: center">Cos()</td><td style="text-align: center">返回一个角度的余弦</td></tr>
+<tr><td style="text-align: center">Exp()</td><td style="text-align: center">返回一个数的指数值</td></tr>
+<tr><td style="text-align: center">Mod()</td><td style="text-align: center">返回除操作的余数</td></tr>
+<tr><td style="text-align: center">Pi()</td><td style="text-align: center">返回圆周率</td></tr>
+<tr><td style="text-align: center">Rand()</td><td style="text-align: center">返回一个随机数</td></tr>
+<tr><td style="text-align: center">Sin()</td><td style="text-align: center">返回一个角度的正弦</td></tr>
+<tr><td style="text-align: center">Sqrt()</td><td style="text-align: center">返回一个数的平方根</td></tr>
+<tr><td style="text-align: center">Tan()</td><td style="text-align: center">返回一个角度的正切</td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter_10.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="chapter_12.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter_10.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="chapter_12.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
