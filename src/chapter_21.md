@@ -105,4 +105,53 @@ MySQL具有多种引擎。它打包多个引擎，这些引擎都隐藏在MySQL�
 * MEMORY在功能上等同于MyISAM，但由于数据存储在内存(不是磁盘)中，速度很快(适用于临时表)。
 * MyISAM是一个性能极高的引擎，支持全文本搜索，但不支持事务处理。
 
+## 21.2 更新表
+
+可以使用ALTER TABLE语句更新表，但理想状态下，当表中存储数据以后，该表就不应该再被更新。**在表的设计过程中需要花费大量时间来考虑，以便后期不对该表进行大的改动。**
+
+ALTER TABLE更改表结构需要下面的信息：
+* 在ALTER TABLE之后给出要更改的表明(该表必须存在，否则将出错)；
+* 更改列表；
+
+```SQL
+MariaDB [testdatabase]> ALTER TABLE vendors ADD vend_phone CHAR(20);
+```
+
+该语句给vendors表增加一个名为vend_phone的列，必须明确其数据类型。
+
+ALTER TABLE的一种常见用途是定义外键：
+
+```SQL
+MariaDB [testdatabase]> ALTER TABLE orderitems ADD CONSTRAINT fk_orderitems_orders FOREIGN KEY (order_num) REFERENCES orders (order_num);
+
+MariaDB [testdatabase]> ALTER TABLE orderitems ADD CONSTRAINT fk_orderitems_products FOREIGN KEY (prod_id) REFERENCES products (prod_id);
+
+MariaDB [testdatabase]> ALTER TABLE orders ADD CONSTRAINT fk_orders_customers FOREIGN KEY (cust_id) REFERENCES customers (cust_id);
+
+MariaDB [testdatabase]> ALTER TABLE products ADD CONSTRAINT fk_products_vendors FOREIGN KEY (vend_id) REFERENCES vendors (vend_id);
+```
+
+复杂的表结构更改一半需要手动删除，设计以下步骤：
+* 用新的列布局创建一个新表；
+* 使用INSERT SELECT语句从旧表复制数据到新表。如果有必要，可使用转换函数和计算字段；
+* 检验包含所需数据的新表；
+* 重命名旧表(如果确定，可以删除它)；
+* 用旧表原来的名字重命名新表；
+* 根据需要，重新创建触发器、存储过程、索引和外键。
+
+**小心使用ALTER TABLE** 使用ALTER TABLE要极为小心，应该在进行改动前做一个完整的备份（模式和数据的备份）。数据库表的更改不能撤销，如果增加了不需要的列，可能不能删除它们。类似地，如果删除了不应该删除的列，可能会丢失该列中的所有数据。
+
+## 21.3 删除表
+
+删除表(删除整个表而不是删除表中的内容)非常简单，使用DROP TABLE语句即可：`DROP TABLE customers2;`。
+
+## 21.4 重命名表
+
+RENAME TABLE语句可以重命名一个表：`RENAME TABLE customers2 TO customers;`。
+
+RENAME TABLE所作的仅是重命名一个表。可以使用下面的语句对多个表重命名：
+
+```SQL
+MariaDB [testdatabase]> RENAME TABLE backup_customers TO customers, backup_vendors TO vendors, backup_products TO products;
+```
 
