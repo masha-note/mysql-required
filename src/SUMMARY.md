@@ -21,6 +21,7 @@
 - [更新和删除数据](./chapter_20.md)
 - [创建和操纵表](./chapter_21.md)
 - [使用视图](./chapter_22.md)
+- [使用存储过程](./chapter_23.md)
 - [管理事务处理](./chapter_26.md)
 - [附录D MySQL数据类型](./appendixD.md)
 - [附录.创建示例数据库结构](./appendix_create.md)
