@@ -22,6 +22,8 @@
 - [创建和操纵表](./chapter_21.md)
 - [使用视图](./chapter_22.md)
 - [使用存储过程](./chapter_23.md)
+- [使用游标](./chapter_24.md)
+- [使用触发器](./chapter_25.md)
 - [管理事务处理](./chapter_26.md)
 - [附录D MySQL数据类型](./appendixD.md)
 - [附录.创建示例数据库结构](./appendix_create.md)

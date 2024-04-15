@@ -72,9 +72,168 @@ MariaDB [testdatabase]> CALL productpricing();
 
 `CALL productpricing();`执行创建的存储过程并返回结果。因为存储过程实际上是一种函数，所以存储过程后需要有`()`符号(即使不传递参数也需要)。
 
-# 23.3.3 删除存储过程
+### 23.3.3 删除存储过程
 
 存储过程在创建之后，被保存在服务器上以供使用，直至被删除。可使用`DROP PROCEDURE productpricing;`。这条语句删除刚创建的存储过程。这里并没有使用`()`，只给出存储过程。
 
 **仅当存在时删除** 如果指定的过程不存在，则DROP PROCEDURE将产生一个错误。当过程存在想删除它时(如果过程不存在也不产生错误)可使用`DROP PROCEDURE IF EXISTS`。
+
+### 23.3.4 使用参数
+
+productpricing只是一个简单的存储过程，它简单地显示SELECT语句的结果。一般，存储过程并不显示结果，而是把结果返回给你指定的变量。
+
+**变量(variable)** 内存中一个特定的位置，用来临时存储数据。
+
+```SQL
+MariaDB [testdatabase]> DELIMITER //
+MariaDB [testdatabase]>
+MariaDB [testdatabase]> CREATE PROCEDURE productpricing(
+    ->     OUT pl DECIMAL(8, 2),
+    ->     OUT ph DECIMAL(8, 2),
+    ->     OUT pa DECIMAL(8, 2)
+    -> )
+    -> BEGIN
+    ->     SELECT Min(prod_price)
+    ->     INTO pl
+    ->     FROM products;
+    ->     SELECT Max(prod_price)
+    ->     INTO ph
+    ->     FROM products;
+    ->     SELECT Avg(prod_price)
+    ->     INTO pa
+    ->     FROM products;
+    -> END //
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [testdatabase]> 
+MariaDB [testdatabase]> DELIMITER ;
+```
+
+此存储过程接受3个参数：pl存储产品最低价格，ph存储产品最高价格，pa存储产品平均价格。
+
+关键字OUT指出相应的参数用来`从存储过程传出一个值（返回给调用者）`。
+
+MySQL支持IN（传递给存储过程）、OUT（从存储过程传出，如这里所用）和INOUT（对存储过程传入和传出）类型的参数。
+
+存储过程的代码位于BEGIN和END语句内，如前所见，它们是一系列SELECT语句，用来检索值，然后保存到相应的变量（通过指定INTO关键字）。 
+
+**参数的数据类型** 存储过程的参数允许的数据类型与表中使用的数据类型相同。注意，记录集不是允许的类型，因此，不能通过一个参数返回多个行和列。
+
+为调用此修改的存储过程，必须指定3个变量名，如
+
+```SQL
+MariaDB [testdatabase]> CALL productpricing(@pricelow, @pricehigh, @priceaverage);
+Query OK, 3 rows affected, 1 warning (0.001 sec)
+```
+
+由于此存储过程要求3个参数，因此必须正好传递3个参数。
+
+**变量名** 所有MySQl变量都必须以@开始。
+
+在调用时，这条语句并不显示任何数据。他返回以后可以显示的变量，为了显示检索出的产品平均价格，可如下进行：
+
+```SQL
+MariaDB [testdatabase]> SELECT @priceaverage;
++---------------+
+| @priceaverage |
++---------------+
+|         16.13 |
++---------------+
+1 row in set (0.000 sec)
+
+MariaDB [testdatabase]> SELECT @priceaverage, @pricelow, @priceaverage;
++---------------+-----------+---------------+
+| @priceaverage | @pricelow | @priceaverage |
++---------------+-----------+---------------+
+|         16.13 |      2.50 |         16.13 |
++---------------+-----------+---------------+
+1 row in set (0.000 sec)
+```
+
+下面是另外一个例子，使用IN和OUT参数。ordertotal接受订单号并返回该订单的合计：
+
+```SQL
+MariaDB [testdatabase]> DELIMITER //
+MariaDB [testdatabase]> 
+MariaDB [testdatabase]> CREATE PROCEDURE ordertotal(
+    ->     IN onumber INT,
+    ->     OUT ototal DECIMAL(8, 2)
+    -> )
+    -> BEGIN
+    -> SELECT Sum(item_price*quantity) FROM orderitems WHERE order_num=onumber INTO ototal;
+    -> END //
+Query OK, 0 rows affected (0.006 sec)
+
+MariaDB [testdatabase]> 
+MariaDB [testdatabase]> DELIMITER ;
+```
+
+onumber定义为IN，因此订单号被传入存储过程。ototal定义为OUT，因为要从存储过程返回合计。使用方法如下：
+
+```SQL
+MariaDB [testdatabase]> CALL ordertotal(20005, @total);
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [testdatabase]> SELECT @total;
++--------+
+| @total |
++--------+
+| 149.87 |
++--------+
+1 row in set (0.000 sec)
+```
+
+### 23.3.5 建立智能存储过程
+
+在存储过程内包含业务规则和智能处理
+
+```SQL
+-- Name: ordertotal
+-- Parameters:  onumber = order number
+--              taxable = 0 if not taxable, 1 if taxable
+--              ototal  = order totoal variable
+
+CREATE PROCEDURE ordertotal(
+    IN onumber INT,
+    IN taxable BOOLEAN,
+    OUT ototal DECIMAL(8,2)
+) COMMENT 'Obtain order total, optinally adding tax'
+BEGIN
+    -- Declare variable for total
+    DECLARE total DECIMAL(8,2);
+    -- Declare tax percentage
+    DECLARE taxrate INT DEFAULT 6;
+
+    -- Get the order total
+    SELECT Sum(item_price*quantity) FROM orderitems WHERE order_num=onumber INTO total;
+
+    -- Is this taxable?
+    IF taxable THEN
+        -- Yes, so add taxable to the total
+        SELECT total+(total/100*taxrate) INTO total;
+    END IF;
+
+    -- And finally, save to out variable
+    SELECT total INTO ototal;
+END;
+```
+
+此存储过程增加了注释(前面放置`--`)。
+
+DECLARE语句定义局部变量，DECLARE要求指定变量名和数据类型，也支持可选的默认值
+
+IF语句检查taxable是否为真，如果为真，则用另一SELECT语句增加营业税到局部变量total。
+
+**COMMENT关键字** 本例子中的存储过程在CREATE PROCEDURE语句中包含了一个COMMENT值。它不是必需的，但如果给出，将在`SHOW PROCEDURE STATUS`的结果中显示。
+
+**IF语句** 这个例子给出了MySQL的IF语句的基本用法。IF语句还支持ELSEIF和ELSE子句（前者还使用THEN子句，后者不使用）。
+
+### 23.3.6 检查存储过程
+
+为显示用来创建一个存储过程的CREATE语句，使用`SHOW CREATE PROCEDURE <procedure名称>;`语句。
+
+使用`SHOW PROCEDURE STATUS`获得包括何时、由谁创建等详细信息的存储过程列表。
+
+**限制过程状态结果** `SHOW PROCEDURE STATUS`列出所有存储过程。为限制其输出，可使用LIKE指定一个过滤模式，例如：`SHOW PROCEDURE STATUS LIKE 'ordertotal';`。
+
 
