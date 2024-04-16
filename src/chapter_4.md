@@ -143,7 +143,7 @@ MariaDB [testdatabase]> SELECT tasks.Name FROM tasks;
 表名也可以是完全限定的
 
 ```SQL
-MariaDB [testdatabase]> SELECT tasks.Name FROM tasks;
+MariaDB [testdatabase]> SELECT tasks.Name FROM testdatabase.tasks;
 +-----------------+
 | Name            |
 +-----------------+
