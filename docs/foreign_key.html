@@ -1,0 +1,283 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>外键 - MySQL必知必会</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 了解SQL</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> MySQL简介</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 使用MySQL</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 检索数据</a></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> 排序检索数据</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> 过滤数据</a></li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> 数据过滤</a></li><li class="chapter-item expanded "><a href="chapter_8.html"><strong aria-hidden="true">8.</strong> 用通配符进行过滤</a></li><li class="chapter-item expanded "><a href="chapter_9.html"><strong aria-hidden="true">9.</strong> 用正则表达式进行搜索</a></li><li class="chapter-item expanded "><a href="chapter_10.html"><strong aria-hidden="true">10.</strong> 创建计算字段</a></li><li class="chapter-item expanded "><a href="chapter_11.html"><strong aria-hidden="true">11.</strong> 使用数据处理函数</a></li><li class="chapter-item expanded "><a href="chapter_12.html"><strong aria-hidden="true">12.</strong> 汇总数据</a></li><li class="chapter-item expanded "><a href="chapter_13.html"><strong aria-hidden="true">13.</strong> 数据分组</a></li><li class="chapter-item expanded "><a href="chapter_14.html"><strong aria-hidden="true">14.</strong> 使用子查询</a></li><li class="chapter-item expanded "><a href="chapter_15.html"><strong aria-hidden="true">15.</strong> 联结表</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="foreign_key.html" class="active"><strong aria-hidden="true">15.1.</strong> 外键</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_16.html"><strong aria-hidden="true">16.</strong> 创建高级联结</a></li><li class="chapter-item expanded "><a href="chapter_17.html"><strong aria-hidden="true">17.</strong> 组合查询</a></li><li class="chapter-item expanded "><a href="chapter_18.html"><strong aria-hidden="true">18.</strong> 全文本搜索</a></li><li class="chapter-item expanded "><a href="chapter_19.html"><strong aria-hidden="true">19.</strong> 插入数据</a></li><li class="chapter-item expanded "><a href="chapter_20.html"><strong aria-hidden="true">20.</strong> 更新和删除数据</a></li><li class="chapter-item expanded "><a href="chapter_21.html"><strong aria-hidden="true">21.</strong> 创建和操纵表</a></li><li class="chapter-item expanded "><a href="chapter_22.html"><strong aria-hidden="true">22.</strong> 使用视图</a></li><li class="chapter-item expanded "><a href="chapter_23.html"><strong aria-hidden="true">23.</strong> 使用存储过程</a></li><li class="chapter-item expanded "><a href="chapter_24.html"><strong aria-hidden="true">24.</strong> 使用游标</a></li><li class="chapter-item expanded "><a href="chapter_25.html"><strong aria-hidden="true">25.</strong> 使用触发器</a></li><li class="chapter-item expanded "><a href="chapter_26.html"><strong aria-hidden="true">26.</strong> 管理事务处理</a></li><li class="chapter-item expanded "><a href="chapter_27.html"><strong aria-hidden="true">27.</strong> 全球化和本地化</a></li><li class="chapter-item expanded "><a href="chapter_28.html"><strong aria-hidden="true">28.</strong> 安全管理</a></li><li class="chapter-item expanded "><a href="chapter_29.html"><strong aria-hidden="true">29.</strong> 数据库维护</a></li><li class="chapter-item expanded "><a href="chapter_30.html"><strong aria-hidden="true">30.</strong> 改善性能</a></li><li class="chapter-item expanded "><a href="appendix_create.html"><strong aria-hidden="true">31.</strong> 附录A. 创建示例数据库结构</a></li><li class="chapter-item expanded "><a href="appendix_insert.html"><strong aria-hidden="true">32.</strong> 附录B. 添加示例数据</a></li><li class="chapter-item expanded "><a href="appendixC.html"><strong aria-hidden="true">33.</strong> 附录C. MySQL常用语句的语法</a></li><li class="chapter-item expanded "><a href="appendixD.html"><strong aria-hidden="true">34.</strong> 附录D. MySQL数据类型</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">MySQL必知必会</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="外键约束"><a class="header" href="#外键约束">外键约束</a></h1>
+<p>以下内容来自<a href="https://dev.mysql.com/doc/refman/8.0/en/create-table-foreign-keys.html">MySQL官方文档</a>。</p>
+<p>MySQL支持外键(foreign key)和外键约束(foreign key constraint)。外键允许跨表数据的交叉引用，外键约束维持外键所建立的引用关系。</p>
+<p>一对外键关系包含<em>一个含有初始列的父表</em>和一个子表，子表中的一列引用父表中的初始列。外键约束在子表中定义。</p>
+<p>在<code>CREATE TABLE</code>或<code>ALTER TABLE</code>中定义外键约束，定义语法如下：</p>
+<pre><code class="language-SQL">[CONSTRAINT [symbol]] FOREIGN KEY
+    [index_name] (col_name, ...)
+    REFERENCES tbl_name (col_name, ...)
+    [ON DELETE reference_option]
+    [ON UPDATE reference_option]
+
+reference_option:
+    RESTRICT | CASCADE | SET NULL | NO ACTION | SET DEFAULT
+</code></pre>
+<p>外键约束的用法：</p>
+<ul>
+<li><a href="#%E6%A0%87%E8%AF%86%E7%AC%A6">标识符</a></li>
+<li><a href="#%E6%9D%A1%E4%BB%B6%E5%92%8C%E9%99%90%E5%88%B6">条件和限制</a></li>
+<li><a href="#%E5%8F%82%E7%85%A7%E5%8A%A8%E4%BD%9C">参照动作</a></li>
+<li><a href="#%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E7%A4%BA%E4%BE%8B">外键约束示例</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F">添加外键约束</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F">删除外键约束</a></li>
+<li><a href="#%E5%A4%96%E9%94%AE%E6%A0%B8%E6%9F%A5">外键核查</a></li>
+<li><a href="#%E9%94%81%E5%AE%9A">锁定</a></li>
+<li><a href="#%E5%A4%96%E9%94%AE%E5%AE%9A%E4%B9%89%E5%92%8C%E5%85%83%E6%95%B0%E6%8D%AE">外键定义和元数据</a></li>
+<li><a href="#%E5%A4%96%E9%94%AE%E9%94%99%E8%AF%AF">外键错误</a></li>
+</ul>
+<h2 id="标识符"><a class="header" href="#标识符"><div id="标识符">标识符</div></a></h2>
+<p>外键约束的命名按下列规则管理：</p>
+<ul>
+<li>
+<p>如果给出了<code>CONSTRAINT &lt;symbol&gt;</code>子句，那么使用语句中定义的名字。</p>
+</li>
+<li>
+<p>如果没有定义<code>CONSTRAINT &lt;symbol&gt;</code>子句或者<code>CONSTRAINT</code>后没给出<code>symbol</code>，那么约束名会自动生成。</p>
+<p>在MySQL 8.0.16之前，InnoDB和NDB引擎使用<code>FOREIGN_KEY index_name</code>(如果有定义)。MySQL 8.0.16后的更高版本会忽略<code>FOREIGN_KEY index_name</code>。</p>
+</li>
+<li>
+<p><code>CONSTRAINT &lt;symbol&gt;</code>定义的值必须是database中唯一的，重复的值会引发类似的错误：</p>
+<pre><code class="language-SQL">ERROR 1005 (HY000): Can't create table 'test.fk1' (errno: 121).
+</code></pre>
+</li>
+<li>
+<p>NDB集群使用的外键名大小写和它们定义的时候一样。<code>8.0.20</code>版本之前，在处理SELECT和其他SQL语句的时候，如果系统变量<code>lower_case_table_names</code>为0，NDB对比执行语句中的外键名和存储的大小写敏感的外键名。<code>8.0.20</code>和之后的版本，该系统变量会被忽略，所有的比较都是忽略大小写的(Bug #30512043)。</p>
+</li>
+</ul>
+<p><code>FOREIGN KEY ... REFERENCES</code>子句中的表和列的标识符可以被<code>`</code>囊括。<code>ANSI_QUOTES</code>SQL模式开启的时候，<code>&quot;</code>也可以起到相同的作用。这些同样考虑到了<code>lower_case_table_names</code>变量的影响。</p>
+<h2 id="条件和限制"><a class="header" href="#条件和限制"><div id="条件和限制">条件和限制</div></a></h2>
+<h2 id="参照动作"><a class="header" href="#参照动作"><div id="参照动作">参照动作</div></a></h2>
+<h2 id="外键约束示例"><a class="header" href="#外键约束示例"><div id="外键约束示例">外键约束示例</div></a></h2>
+<h2 id="添加外键约束"><a class="header" href="#添加外键约束"><div id="添加外键约束">添加外键约束</div></a></h2>
+<h2 id="删除外键约束"><a class="header" href="#删除外键约束"><div id="删除外键约束">删除外键约束</div></a></h2>
+<h2 id="外键核查"><a class="header" href="#外键核查"><div id="外键核查">外键核查</div></a></h2>
+<h2 id="锁定"><a class="header" href="#锁定"><div id="锁定">锁定</div></a></h2>
+<h2 id="外键定义和元数据"><a class="header" href="#外键定义和元数据"><div id="外键定义和元数据">外键定义和元数据</div></a></h2>
+<h2 id="外键错误"><a class="header" href="#外键错误"><div id="外键错误">外键错误</div></a></h2>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter_15.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="chapter_16.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter_15.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="chapter_16.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

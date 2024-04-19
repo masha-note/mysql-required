@@ -14,6 +14,7 @@
 - [数据分组](./chapter_13.md)
 - [使用子查询](./chapter_14.md)
 - [联结表](./chapter_15.md)
+    - [外键](./foreign_key.md)
 - [创建高级联结](./chapter_16.md)
 - [组合查询](./chapter_17.md)
 - [全文本搜索](./chapter_18.md)

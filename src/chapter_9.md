@@ -381,18 +381,6 @@ MariaDB [testdatabase]> SELECT name FROM tasks WHERE name REGEXP "^[a-d]{2}";
 +-----------------+
 3 rows in set (0.001 sec)
 
-MariaDB [testdatabase]> SELECT * FROM tasks;
-+----+-----------------+--------+-------+---------+-------------+--------+
-| Id | Name            | Result | Fault | Correct | Description | Parent |
-+----+-----------------+--------+-------+---------+-------------+--------+
-|  1 | db_create_test  |      1 |     1 |       0 | NULL        |        |
-|  2 | db_create_test1 |      1 |     0 |       1 |             | NULL   |
-|  3 | db_create_test2 |      0 |     1 |       0 | NULL        | NULL   |
-|  4 | fake_case_1     |      1 |     0 |       0 |             |        |
-|  5 | create_test12   |      1 |     2 |       0 | NULL        | NULL   |
-+----+-----------------+--------+-------+---------+-------------+--------+
-5 rows in set (0.001 sec)
-
 MariaDB [testdatabase]> SELECT name FROM tasks WHERE name REGEXP "[[:digit:]_]{2}$";
 +---------------+
 | name          |
