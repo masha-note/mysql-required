@@ -2,6 +2,8 @@
 
 以下内容来自[MySQL官方文档](https://dev.mysql.com/doc/refman/8.0/en/create-table-foreign-keys.html)。
 
+在MySQL的SQL语句后加上`\G`，表示将查询结果进行按列打印，可以使每个字段打印到单独的行。即将查到的结构旋转90度变成纵向。
+
 MySQL支持外键(foreign key)和外键约束(foreign key constraint)。外键允许跨表数据的交叉引用，外键约束维持外键所建立的引用关系。
 
 一对外键关系包含*一个含有初始列的父表*和一个子表，子表中的一列引用父表中的初始列。外键约束在子表中定义。
@@ -31,7 +33,6 @@ reference_option:
 - [锁定](#锁定)
 - [外键定义和元数据](#外键定义和元数据)
 - [外键错误](#外键错误)
-
 
 ## <div id="标识符">标识符</div>
 
@@ -120,9 +121,252 @@ InnoDB使用深度优先搜索算法对外键约束对应的索引记录执行�
 *被存储的生成列*的基列上的外键约束不能使用`CASCADE`、`SET NULL`或`SET DEFAULT`作为`ON UPDATE`或`ON DELETE`参考操作。
 
 ## <div id="外键约束示例">外键约束示例</div>
+
+下面是一个在单个列上的建立外键关系的示例：
+
+```SQL
+MariaDB [testdatabase]> CREATE TABLE parent(
+    -> id INT NOT NULL,
+    -> PRIMARY KEY (id)
+    -> ) ENGINE=INNODB;
+Query OK, 0 rows affected (0.030 sec)
+
+MariaDB [testdatabase]> CREATE TABLE child(
+    -> id INT,
+    -> parent_id INT,
+    -> INDEX par_ind (parent_id),
+    -> FOREIGN KEY (parent_id) REFERENCES parent(id)
+    -> ON DELETE CASCADE
+    -> ) ENGINE=INNODB;
+Query OK, 0 rows affected (0.029 sec)
+```
+
+以下是一个更复杂的示例，其中product_order表具有另外两个表的外键。一个外键引用product表中的一个两列索引，另一个引用customer表中的单列索引：
+
+```SQL
+MariaDB [test]> CREATE TABLE product (
+    -> category INT NOT NULL, id INT NOT NULL,
+    -> price DECIMAL,
+    -> PRIMARY KEY(category, id)
+    -> ) ENGINE=INNODB;
+Query OK, 0 rows affected (0.029 sec)
+
+MariaDB [test]> CREATE TABLE customer (
+    -> id INT NOT NULL,
+    -> PRIMARY KEY (id)
+    -> ) ENGINE=INNODB;
+Query OK, 0 rows affected (0.023 sec)
+
+MariaDB [test]> CREATE TABLE product_order (
+    -> no INT NOT NULL AUTO_INCREMENT,
+    -> product_category INT NOT NULL,
+    -> product_id INT NOT NULL,
+    -> customer_id INT NOT NULL,
+    -> 
+    -> PRIMARY KEY(no),
+    -> INDEX (product_category, product_id),
+    -> INDEX (customer_id),
+    -> 
+    -> FOREIGN KEY (product_category, product_id)
+    -> REFERENCES product(category, id)
+    -> ON UPDATE CASCADE ON DELETE RESTRICT,
+    -> 
+    -> FOREIGN KEY (customer_id)
+    -> REFERENCES customer(id)
+    -> ) ENGINE=INNODB;
+Query OK, 0 rows affected (0.037 sec)
+```
+
 ## <div id="添加外键约束">添加外键约束</div>
+
+可以通过`ALTER TABLE`给一个已存在的表添加外键约束：
+
+```SQL
+ALTER TABLE tbl_name
+    ADD [CONSTRAINT [symbol]] FOREIGN KEY
+    [index_name] (col_name, ...)
+    REFERENCES tbl_name (col_name, ...)
+    [ON DELETE reference_option]
+    [ON UPDATE reference_option]
+```
+
+外键可以自引用(引用同一个表)。当使用`ALTER TABLE`向表添加外键约束时，请记住首先在外键引用的列上创建索引。
+
 ## <div id="删除外键约束">删除外键约束</div>
+
+使用`ALTER TABLE`删除外键约束：
+
+```SQL
+ALTER TABLE tbl_name DROP FOREIGN KEY fk_symbol;
+```
+
+如果`FOREIGN KEY`子句在创建约束时定义了约束名称，则可以引用该名称来删除外键约束。否则要使用内部生成的约束名称。使用`SHOW CREATE TABLE`确定外键约束名称：
+
+```SQL
+MariaDB [testdatabase]> SHOW CREATE TABLE child\G
+*************************** 1. row ***************************
+       Table: child
+Create Table: CREATE TABLE `child` (
+  `id` int(11) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  KEY `par_ind` (`parent_id`),
+  CONSTRAINT `child_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `parent` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+1 row in set (0.000 sec)
+
+MariaDB [testdatabase]> ALTER TABLE child DROP FOREIGN KEY `child_ibfk_1`;
+Query OK, 0 rows affected (0.008 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [testdatabase]> SHOW CREATE TABLE child\G
+*************************** 1. row ***************************
+       Table: child
+Create Table: CREATE TABLE `child` (
+  `id` int(11) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  KEY `par_ind` (`parent_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+1 row in set (0.000 sec)
+```
+
+`ALTER TABLE ... ALGORITHM=INPLACE`支持同时有添加和删除操作，但`ALTER TABLE ... ALGORITHM=COPY`不支持。
+
 ## <div id="外键核查">外键核查</div>
+
+在MySQL中，InnoDB和NDB表支持检查外键约束。外键检查由`foreign_key_checks`变量控制，该变量在默认情况下是启用的。通常在正常操作期间启用该变量以强制引用完整性。`foreign_key_checks`变量对NDB表和InnoDB表的作用是一样的。
+
+`foreign_key_checks`变量是动态的，支持全局作用域和会话作用域。更多信息参考[使用系统变量](https://dev.mysql.com/doc/refman/8.0/en/using-system-variables.html)。
+
+以下场景中通常会关闭外键检查：
+
+- 删除由外键约束引用的表。被引用的表只有在禁用`foreign_key_checks`后才能被删除(否则需要先删除外键约束)。删除表时，表上定义的约束也会被删除。
+
+- Reloading tables in different order than required by their foreign key relationships。例如，`mysqldump`在转储文件中生成正确的表定义，包括子表的外键约束。为了更方便地从转储文件中重新加载具有外键关系的表，`mysqldump`自动在转储输出中包含一条禁用`foreign_key_checks`的语句。这使得表能够以任何顺序导入，以防转储文件中包含外键顺序不正确的表。禁用`foreign_key_checks`还可以通过避免外键检查来加快导入操作。
+
+- 执行`LOAD DATA`时关闭`foreign_key_checks`以禁用外键检查。
+
+- 对具有外键关系的表执行`ALTER TABLE`操作时关闭`foreign_key_checks`。
+
+当`foreign_key_checks`被禁用时，外键约束将被忽略，除了以下例外情况：
+
+- 如果表定义不符合引用此表的外键约束(比如被引用列数据类型变更)，则重新创建先前被删除的表将返回错误。表必须具有正确的列名和类型。被引用得键上必须建立有索引。如果不满足这些要求， MySQL返回错误表示未形成正确的外键约束。
+
+- 如果更改后的表的外键定义不正确，则针对此表的更改将返回错误(errno: 150)。
+
+- 删除外键约束所需的索引。在删除索引之前，必须先删除外键约束(为什么删表不用?)。
+
+- 在类型不匹配(不满足创建外键约束的要求)的两个列间创建外键约束。
+
+禁用`foreign_key_checks`有这些额外效果：
+
+- 允许删除包含*被该数据库外部的表引用*的具有外键的表的数据库。
+
+- 启用`foreign_key_checks`不会触发对表数据的扫描，这意味着在禁用`foreign_key_checks`时添加到表中的行不会在重新启用`foreign_key_checks`后检查约束。
+
 ## <div id="锁定">锁定</div>
+
+MySQL根据需要将元数据锁(metadata locks)扩展到与外键约束相关的表。扩展元数据锁可以防止冲突的`DML`和`DDL`操作在相关表上并发执行。此特性还允许在修改父表时更新子表外键元数据。在早期的MySQL版本中，子表拥有的外键元数据不能安全地更新。
+
+如果用`LOCK TABLES`显式地锁定表，那么与外键约束相关的任何表都将被隐式地打开和锁定。外键检查在相关表上使用共享只读锁(`LOCK TABLES READ`)。级联(CASCADE)更新在涉及操作的相关表上使用无共享写锁(`LOCK TABLES WRITE`)。
+
 ## <div id="外键定义和元数据">外键定义和元数据</div>
+
+可以从信息模式(Information Schema)KEY_COLUMN_USAGE表中获取外键信息。下面显示了针对该表的查询示例：
+
+```SQL
+MariaDB [testdatabase]> SHOW CREATE TABLE child\G
+*************************** 1. row ***************************
+       Table: child
+Create Table: CREATE TABLE `child` (
+  `id` int(11) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  KEY `par_ind` (`parent_id`),
+  CONSTRAINT `child_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `parent` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+1 row in set (0.001 sec)
+
+MariaDB [testdatabase]> SELECT TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, CONSTRAINT_NAME
+    -> FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+    -> WHERE REFERENCED_TABLE_SCHEMA IS NOT NULL;
++--------------+---------------+------------------+----------------------+
+| TABLE_SCHEMA | TABLE_NAME    | COLUMN_NAME      | CONSTRAINT_NAME      |
++--------------+---------------+------------------+----------------------+
+| testdatabase | child         | parent_id        | child_ibfk_1         |
++--------------+---------------+------------------+----------------------+
+1 rows in set (0.012 sec)
+```
+
+InnoDB的外键信息可以从`INNODB_FOREIGN`(使用MariaDB实验的时候没发现此表，而是`INNODB_SYS_FOREIGN`)和`INNODB_FOREIGN_COLS`(使用MariaDB实验的时候没发现此表，而是`INNODB_SYS_FOREIGN_COLS`)表中获取。例如：
+
+```SQL
+MariaDB [testdatabase]> SELECT * FROM INFORMATION_SCHEMA.INNODB_SYS_FOREIGN \G
+*************************** 1. row ***************************
+      ID: test/product_order_ibfk_1
+FOR_NAME: test/product_order
+REF_NAME: test/product
+  N_COLS: 2
+    TYPE: 4
+*************************** 2. row ***************************
+      ID: test/product_order_ibfk_2
+FOR_NAME: test/product_order
+REF_NAME: test/customer
+  N_COLS: 1
+    TYPE: 0
+*************************** 3. row ***************************
+      ID: testdatabase/child_ibfk_1
+FOR_NAME: testdatabase/child
+REF_NAME: testdatabase/parent
+  N_COLS: 1
+    TYPE: 1
+*************************** 4. row ***************************
+      ID: testdatabase/fk_orderitems_orders
+FOR_NAME: testdatabase/orderitems
+REF_NAME: testdatabase/orders
+  N_COLS: 1
+    TYPE: 0
+*************************** 5. row ***************************
+      ID: testdatabase/fk_orders_customers
+FOR_NAME: testdatabase/orders
+REF_NAME: testdatabase/customers
+  N_COLS: 1
+    TYPE: 0
+*************************** 6. row ***************************
+      ID: testdatabase/fk_products_vendors
+FOR_NAME: testdatabase/products
+REF_NAME: testdatabase/vendors
+  N_COLS: 1
+    TYPE: 0
+6 rows in set (0.000 sec)
+```
+
 ## <div id="外键错误">外键错误</div>
+
+在涉及InnoDB表的外键错误(通常是MySQL服务器的error 150)的情况下，可以通过查看`SHOW ENGINE INNODB STATUS`输出来获取最新的外键错误信息。
+
+```SQL
+MariaDB [testdatabase]> SHOW ENGINE INNODB STATUS\G
+......
+------------------------
+LATEST FOREIGN KEY ERROR
+------------------------
+2024-04-07 21:57:11 0x7f71cc2fa700 Error in foreign key constraint creation for table `testdatabase`.`#sql-170a53_4b6e`.
+A foreign key constraint of name `testdatabase`.`fk_orderitems_orders`
+already exists. (Note that internally InnoDB adds 'databasename'
+in front of the user-defined constraint name.)
+Note that InnoDB’s FOREIGN KEY system tables store
+constraint names as case-insensitive, with the
+MySQL standard latin1_swedish_ci collation. If you
+create tables or databases whose names differ only in
+the character case, then collisions in constraint
+names can occur. Workaround: name your constraints
+explicitly with unique names.
+......
+
+1 row in set (0.001 sec)
+```
+
+**Warning**
+
+如果用户拥有所有父表的表级权限，则外键操作的`ER_NO_REFERENCED_ROW_2`和`ER_ROW_IS_REFERENCED_2`错误消息会暴露父表的信息。如果用户没有所有父表的表级权限，则会显示更通用的错误消息(`ER_NO_REFERENCED_ROW`和`ER_ROW_IS_REFERENCED`)。
+
+一个例外是定义了以`DEFINER`权限执行的存储过程中，权限评估的对象是`DEFINER`子句中的指定的用户而不是调用者。如果该用户具有表级父表权限，则仍然显示父表信息。在这种情况下，存储程序创建者应该通过包含适当的条件处理程序来隐藏信息。
